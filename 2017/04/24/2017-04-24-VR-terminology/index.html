@@ -1,0 +1,1189 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="F7u1qs7cxrGKFwGYVBckaESSUUKfgMVBnuZZUvdI5RA" />
+
+
+
+
+  <meta name="baidu-site-verification" content="3z8x68py8V" />
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="VR," />
+
+
+
+
+
+  <link rel="alternate" href="/true" title="Yaitza" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1. VR2. VR常用术语解析2.1 FOV (视场角，又称：视场)视场角，英文 Field of View，简称FOV。   1.在光学仪器中，以光学仪器的镜头为顶点，以被测目标的物像可通过镜头的最大范围的两条边缘构成的夹角，称为视场角。如图一。视场角的大小决定了光学仪器的视野范围，视场角越大，视野就越大，光学倍率就越小。通俗地说，目标物体超过这个角就不会被收在镜头里。   2.在显示系统中，">
+<meta property="og:type" content="article">
+<meta property="og:title" content="VR常用术语">
+<meta property="og:url" content="http://yaitza.cn/2017/04/24/2017-04-24-VR-terminology/index.html">
+<meta property="og:site_name" content="Yaitza">
+<meta property="og:description" content="1. VR2. VR常用术语解析2.1 FOV (视场角，又称：视场)视场角，英文 Field of View，简称FOV。   1.在光学仪器中，以光学仪器的镜头为顶点，以被测目标的物像可通过镜头的最大范围的两条边缘构成的夹角，称为视场角。如图一。视场角的大小决定了光学仪器的视野范围，视场角越大，视野就越大，光学倍率就越小。通俗地说，目标物体超过这个角就不会被收在镜头里。   2.在显示系统中，">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-24-VR-terminology.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2-2017-04-24-VR-terminology.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/3-2017-04-24-VR-terminology.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/4-2017-04-24-VR-terminology.png">
+<meta property="article:published_time" content="2017-04-23T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-09T00:57:57.162Z">
+<meta property="article:author" content="Yaitza Young">
+<meta property="article:tag" content="VR">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-24-VR-terminology.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yaitza.cn/2017/04/24/2017-04-24-VR-terminology/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> VR常用术语 | Yaitza </title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97814311-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6df12946920b864a0ece38cbc1f9af63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279058270&web_id=1279058270" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yaitza</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yaitza.cn/2017/04/24/2017-04-24-VR-terminology/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yaitza Young">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yaitza">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yaitza" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                VR常用术语
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-24T00:00:00+08:00">
+                2017-04-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+		   
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  12
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-VR"><a href="#1-VR" class="headerlink" title="1. VR"></a>1. VR</h1><h1 id="2-VR常用术语解析"><a href="#2-VR常用术语解析" class="headerlink" title="2. VR常用术语解析"></a>2. VR常用术语解析</h1><h2 id="2-1-FOV-视场角，又称：视场"><a href="#2-1-FOV-视场角，又称：视场" class="headerlink" title="2.1 FOV (视场角，又称：视场)"></a>2.1 FOV (视场角，又称：视场)</h2><p>视场角，英文 Field of View，简称FOV。 </p>
+<ul>
+<li>1.在光学仪器中，以光学仪器的镜头为顶点，以被测目标的物像可通过镜头的最大范围的两条边缘构成的夹角，称为视场角。如图一。视场角的大小决定了光学仪器的视野范围，视场角越大，视野就越大，光学倍率就越小。通俗地说，目标物体超过这个角就不会被收在镜头里。<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-24-VR-terminology.png" alt="图一">  </li>
+<li>2.在显示系统中，视场角就是显示器边缘与观察点（眼睛）连线的夹角。例如在图二中，AOB角就是水平视场角，BOC就是垂直视场角。<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2-2017-04-24-VR-terminology.png" alt="图二"><br>视场角与焦距的关系：一般情况下，视场角越大，焦距就越短。  </li>
+</ul>
+<h2 id="2-2-分辨率"><a href="#2-2-分辨率" class="headerlink" title="2.2 分辨率"></a>2.2 分辨率</h2><p>分辨率可以从显示分辨率与图像分辨率两个方向来分类。显示分辨率（屏幕分辨率）是屏幕图像的精密度，是指显示器所能显示的像素有多少。图像分辨率则是单位英寸中所包含的像素点数，其定义更趋近于分辨率本身的定义。    </p>
+<h3 id="2-2-1-定义"><a href="#2-2-1-定义" class="headerlink" title="2.2.1 定义"></a>2.2.1 定义</h3><ul>
+<li>1.图像处理或信号处理中的空间或时间分辨率：能够分辨图像中两个点或线的能力。最好的数学定义是使用点扩展函数的分布大小。</li>
+<li>2.信号处理中的频谱分辨率，由观察的时间窗长所决定的所能够分辨的最小的频谱分量的差别。</li>
+</ul>
+<p>以分辨率为1024×768的屏幕来说，即每一条水平线上包含有1024个像素点，共有768条线，即扫描列数为1024列，行数为768行。分辨率不仅与显示尺寸有关，还受显像管点距、视频带宽等因素的影响。其中，它和刷新频率的关系比较密切，严格地说，只有当刷新频率为“无闪烁刷新频率”，显示器能达到最高多少分辨率，才能称这个显示器的最高分辨率为多少。  </p>
+<h3 id="2-2-2-特质"><a href="#2-2-2-特质" class="headerlink" title="2.2.2 特质"></a>2.2.2 特质</h3><p>分辨率决定了位图图像细节的精细程度。<br>通常情况下，图像的分辨率越高，所包含的像素就越多，图像就越清晰，印刷的质量也就越好。同时，它也会增加文件占用的存储空间。   </p>
+<h3 id="2-2-3-单位"><a href="#2-2-3-单位" class="headerlink" title="2.2.3 单位"></a>2.2.3 单位</h3><p>描述分辨率的单位有：dpi（点每英寸）、lpi（线每英寸）和ppi（像素每英寸）。但只有lpi是描述光学分辨率的尺度的。虽然dpi和ppi也属于分辨率范畴内的单位，但是他们的含义与lpi不同。而且lpi与dpi无法换算，只能凭经验估算。<br>另外，ppi和dpi经常都会出现混用现象。但是他们所用的领域也存在区别。从技术角度说，“像素”只存在于电脑显示领域，而“点”只出现于打印或印刷领域。  </p>
+<h3 id="2-2-4-换算"><a href="#2-2-4-换算" class="headerlink" title="2.2.4 换算"></a>2.2.4 换算</h3><p>ppi和lpi可以换算，lpi等于ppi的一半，但是取决于纳奎斯特极限。<br><strong>DPI</strong><br>设备分辨率(DeviceResolution)又称输出分辨率，指的是各类输出设备每英寸上可产生的点数，如显示器、喷墨打印机、激光打印机、绘图仪的分辨率。这种分辨率通过DPI来衡量，PC显示器的设备分辨率在60至120DPI之间，打印设备的分辨率在360至2400DPI之间。<br><strong>PPI</strong><br>图像分辨率(ImageResolution)指图像中存储的信息量。这种分辨率有多种衡量方法，典型的是以每英寸的像素数(PPI，pixel per inch)来衡量。当然也有以每厘米的像素数(PPC，pixel per centimeter)来衡量的。图像分辨率决定了图像输出的质量，图像分辨率和图像尺寸(高宽)的值一起决定了文件的大小，且该值越大图形文件所占用的磁盘空间也就越多。图像分辨率以比例关系影响着文件的大小， 即文件大小与其图像分辨率的平方成正比。如果保持图像尺寸不变，将图像分辨率提高一倍，则其文件大小增大为原来的四倍。<br><strong>LPI</strong><br>网屏分辨率(ScreenResolution)又称网幕频率(是印刷术语)，指的是印刷图像所用网屏的每英寸的网线数(即挂网网线数)，以(LPI)来表示。例如150LPI是指每英寸加有150条网线。<br><strong>位分辨率</strong><br>图像的位分辨率(BitResolution)又称位深，是用来衡量每个像素储存信息的位数。这种分辨率决定可以标记为多少种色彩等级的可能性。一般常见的有8位、16位、24位或32位色彩。有时我们也将位分辨率称为颜色深度。所谓”位”，实际上是指”2”的平方次数，8位即是2的八次方，也就是8个2相乘，等于256。所以，一幅8位色彩深度的图像，所能表现的色彩等级是256级。  </p>
+<h2 id="2-3-刷新率"><a href="#2-3-刷新率" class="headerlink" title="2.3 刷新率"></a>2.3 刷新率</h2><p>刷新率指的是图像在屏幕上更新的速度，也即屏幕上的图像每秒钟出现的次数，它的单位是赫兹（Hz）。刷新频率越高，屏幕上图像闪烁感就越小，稳定性也就越高，换言之对视力的保护也越好。  </p>
+<h3 id="2-3-1-定义"><a href="#2-3-1-定义" class="headerlink" title="2.3.1 定义"></a>2.3.1 定义</h3><p>刷新率就是屏幕每秒画面被刷新的次数。<br>你可以这么理解，看电影时我们看到的其实是一副一副静止的画面。但我们能感觉画面在动，是因为人的眼睛有视觉停留效应，前一幅画面留在大脑中的印象还没消失，紧接着后一幅画面就跟上来了，且两者差别很小。一个动作要用很多幅画面来显示，这样我们就感觉画面在动了。<br>这一幅一幅地更换画面，就是在刷新。假设一个动作由20张画面完成，我们看上去就有点像动画片，而这个动作增加到30张的话，看上去就自然多了。<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/3-2017-04-24-VR-terminology.png" alt="图二"> </p>
+<h3 id="2-3-2-分类"><a href="#2-3-2-分类" class="headerlink" title="2.3.2 分类"></a>2.3.2 分类</h3><p>刷新率分为垂直刷新率和水平刷新率，一般提到的刷新率通常指垂直刷新率。<br>垂直刷新率表示屏幕的图象每秒钟重绘多少次，也就是每秒钟屏幕刷新的次数，以Hz（赫兹）为单位。刷新率越高越好，图象就越稳定，图像显示就越自然清晰，对眼睛的影响也越小。刷新频率越低，图像闪烁和抖动的就越厉害，眼睛疲劳得就越快。一般来说，如能达到80Hz以上的刷新频率就可完全消除图像闪烁和抖动感，眼睛也不会太容易疲劳。<br>显然刷新率越高越好，但是建议你不要让显示器一直以最高刷新率工作，那样会加速CRT显像管的老化，一般比最高刷新率低一到两档是比较合适的，建议85Hz。<br>而液晶显示器(LCD)的发光原理与传统的CRT是不一样的，由于液晶显示器每一个点在收到信号后就一直保持那种色彩和亮度，恒定发光，而不象阴极射线管显示器（CRT）那样需要不断刷新亮点。<br>因此，液晶显示器画质高而且绝对不会闪烁，把眼睛疲劳降到了最低。而刷新率对CRT的意义比较突出，有时，LCD刷新高了,反而会影响其使用寿命般保持在60-75就可以了。  </p>
+<h3 id="2-3-3-影响因素"><a href="#2-3-3-影响因素" class="headerlink" title="2.3.3 影响因素"></a>2.3.3 影响因素</h3><p>从硬件角度来说，影响刷新率最主要的因素就是显示器的带宽。<br>现在一般17寸的彩显带宽在100左右，完全能上85Hz，屏幕越大，带宽越大，19寸的在200左右，21寸的在300左右，同品牌同尺寸的彩显，带宽越高，价格越贵。<br>其次影响刷新率的还有显卡。显卡也有可用的刷新率和分辨率，但是就刷新率来说，这点现在完全可以忽略不计。因为这主要针对老一代的显卡，现在哪怕古董级的TNT2显卡，也能支持1024×768分辨率下达到85Hz的效果，1024×768是17寸CRT显示器的 标准分辨率。所以，影响刷新率最主要的还是显示器的带宽。<br>从软件角度来说，影响刷新率最大的是屏幕的分辨率。<br>举个例子，同样是17寸彩显，带宽108，将分辨率调至1024×768，最高能达到85Hz，调高至1280×1024，最高只能达到70Hz，调低至800×600，却能达到100Hz。<br>分辨率越高，在带宽不变的情况下，刷新率就越低，要想保持高刷新率，只有采用高的带宽，所以大屏幕显示器的带宽都很高。  </p>
+<h3 id="2-3-4-VR刷新率"><a href="#2-3-4-VR刷新率" class="headerlink" title="2.3.4 VR刷新率"></a>2.3.4 VR刷新率</h3><p>就目前的VR产品而已，有一个致命的“硬伤”：晕眩感太强。要想体验时不头晕，刷新率和帧数最少需要达到90大关才勉强能做到，而都达到120时，才可能不头晕。遗憾的是，现在的VR大多都在60左右，甚至有的帧数才30fps，所以头晕是一定的。</p>
+<h2 id="2-4-沉浸感"><a href="#2-4-沉浸感" class="headerlink" title="2.4 沉浸感"></a>2.4 沉浸感</h2><h3 id="2-4-1-定义"><a href="#2-4-1-定义" class="headerlink" title="2.4.1 定义"></a>2.4.1 定义</h3><p>沉浸感就是让人专注在当前的目标情境下感到愉悦和满足，而忘记真实世界的情境。沉浸感往往包括人的感官体验和人的认知体验，是强烈的正负情绪交替的过程。  </p>
+<h3 id="2-4-2-沉浸理论"><a href="#2-4-2-沉浸理论" class="headerlink" title="2.4.2 沉浸理论"></a>2.4.2 沉浸理论</h3><p>早期沉浸理论指出，挑战与技巧是影响沉浸的主要因素。若挑战太高，使用者对环境会缺少控制能力，而产生焦虑或挫折感；反之会觉得无聊而失去兴趣。沉浸状态主要发生在两者平衡的情况下。两者均低时，使用者的心态为冷漠。<br>后续的研究则开始着重沉浸经验带来的自我肯定，促使使用者的后续学习行为。<br>随计算机科技的发展，沉浸理论延伸至人机互动上的讨论，Webster等人视这种互动具游戏和探索的特质。Ghani和Deshpande(1994)以人机互动对工作的影响进行研究，提出两个沉浸的主要特征：心理享受和完全专注。<br>之后Novak等人研究发现，网络使用行为中，信息寻求最容易进入沉浸，其次为阅读与书写。不同的网络活动型式，如在线游戏、在线购物、E-mail等，也会带来沉浸经验的差异。<br>沉浸体验的发生伴随着九个因素：每一步有明确的目标；对行动有迅速的反馈；挑战和技巧之间的平衡；行动和意识相融合；摒除杂念；不必担心失败；自我意识消失；时间感歪曲；行动具有自身的目的。  </p>
+<h2 id="2-5-时延"><a href="#2-5-时延" class="headerlink" title="2.5 时延"></a>2.5 时延</h2><p>指”Motion-To-Photon Latency”, 指的是从用户运动开始到相应画面显示到屏幕上所花的时间.<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/4-2017-04-24-VR-terminology.png" alt="时延"><br>这中间经过了大概这么几个步骤:  </p>
+<ul>
+<li>1.传感器采集运动输入数据</li>
+<li>2.采集到的数据进行过滤并通过线缆传输到主机</li>
+<li>3.游戏引擎根据获取的输入数据更新逻辑和渲染视口</li>
+<li>4.提交到驱动并由驱动发送到显卡进行渲染</li>
+<li>5.把渲染的结果提交到屏幕, 像素进行颜色的切换</li>
+<li>6.用户在屏幕上看到相应的画面  </li>
+</ul>
+<p>这其中的每一个步骤都会产生一定的延迟, 而目前公认的大众能接受的延迟是20ms以下, 这基本上可以做为衡量一个VR头显是不是合格的一个标准.  </p>
+<h2 id="2-6-视角平衡点"><a href="#2-6-视角平衡点" class="headerlink" title="2.6 视角平衡点"></a>2.6 视角平衡点</h2><h2 id="2-7-余晖效应"><a href="#2-7-余晖效应" class="headerlink" title="2.7 余晖效应"></a>2.7 余晖效应</h2><p>人眼在观察景物时，光信号传人大脑神经，需经过一段短暂的时间，光的作用结束后，视觉形象并不立即消失，这种残留的视觉称“后像”，视觉的这一现象则被称为“视觉暂留”.<br>是光对视网膜所产生的视觉在光停止作用后，仍保留一段时间的现象，其具体应用是电影的拍摄和放映。原因是由视神经的反应速度造成的，其时值是二十四分之一秒。是动画、电影等视觉媒体形成和传播的根据。视觉实际上是靠眼睛的晶状体成像，感光细胞感光，并且将光信号转换为神经电流，传回大脑引起人体视觉。感光细胞的感光是靠一些感光色素，感光色素的形成是需要一定时间的，这就形成了视觉暂停的机理.<br>视觉暂留现象首先被中国人发现，走马灯便是据历史记载中最早的视觉暂留运用。宋时已有走马灯 ，当时称 “马骑灯 ”.随后法国人保罗·罗盖在1828年发明了留影盘，它是一个被绳子在两面穿过的圆盘。盘的一个面画了一只鸟，另一面画了一个空笼子。当圆盘旋转时，鸟在笼子里出现了。这证明了当眼睛看到一系列图像时，它一次保留一个图像.<br>物体在快速运动时, 当人眼所看到的影像消失后，人眼仍能继续保留其影像0.1-0.4秒左右的图像，这种现象被称为视觉暂留现象。是人眼具有的一种性质。人眼观看物体时，成像于视网膜上，并由视神经输入人脑，感觉到物体的像。但当物体移去时，视神经对物体的印象不会立即消失，而要延续0.1 -0.4秒的时间，人眼的这种性质被称为“眼睛的视觉暂留”.<br><strong>余晖效应其他例子</strong>：  </p>
+<ul>
+<li>1.人类死后,普遍认为大脑依然在活动,并且临死前的几分钟记忆死后还会在大脑停留一段时间,这便也是”余晖效应”  </li>
+<li>2.旧式电灯关掉电源后,仍然还会亮一小会.这也被称为”余晖效应”</li>
+</ul>
+<h1 id="3-显示问题"><a href="#3-显示问题" class="headerlink" title="3. 显示问题"></a>3. 显示问题</h1><table>
+<thead>
+<tr>
+<th>显示问题</th>
+<th>现象</th>
+<th>效果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>01.卡顿</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>02.漂移</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>03.倾斜</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>04.跳屏</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>05.闪屏</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>06.花屏</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>07.冻屏</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>08.烧屏</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>09.平面撕裂</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>10.畸变</td>
+<td>-</td>
+<td>-</td>
+</tr>
+<tr>
+<td>11.拖影</td>
+<td>-</td>
+<td>-</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/VR/" rel="tag"># VR</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>🐶 您的支持将鼓励我继续创作 🐶</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.jpg" alt="Yaitza Young WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.jpg" alt="Yaitza Young Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+        
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Yaitza Young 的个人博客">Yaitza Young</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://yaitza.cn/2017/04/24/2017-04-24-VR-terminology/" title="VR常用术语">VR常用术语</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://yaitza.cn/2017/04/24/2017-04-24-VR-terminology/" title="VR常用术语">http://yaitza.cn/2017/04/24/2017-04-24-VR-terminology/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年4月24日 - 00时04分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Yaitza Young 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/24/2017-04-24-VR-history/" rel="next" title="VR发展过程中产品的市场形态与优缺点">
+                <i class="fa fa-chevron-left"></i> VR发展过程中产品的市场形态与优缺点
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/25/2017-04-25-Shell-ColorOutput/" rel="prev" title="Shell带颜色输出">
+                Shell带颜色输出 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODM2NS80OTM3"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yaitza Young" />
+          <p class="site-author-name" itemprop="name">Yaitza Young</p>
+          <p class="site-description motion-element" itemprop="description">yaitza's steps</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/true" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yaitza" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/jay-Come-on/" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  cnblogs
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.woaitqs.cc/" title="Qisen Tang" target="_blank">Qisen Tang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://szhshp.org" title="szhshp的博客" target="_blank">szhshp的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.zhangwei.website" title="JuniorCoder" target="_blank">JuniorCoder</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-VR"><span class="nav-text">1. VR</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-VR常用术语解析"><span class="nav-text">2. VR常用术语解析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-FOV-视场角，又称：视场"><span class="nav-text">2.1 FOV (视场角，又称：视场)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-分辨率"><span class="nav-text">2.2 分辨率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-定义"><span class="nav-text">2.2.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-特质"><span class="nav-text">2.2.2 特质</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-单位"><span class="nav-text">2.2.3 单位</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-4-换算"><span class="nav-text">2.2.4 换算</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-刷新率"><span class="nav-text">2.3 刷新率</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-定义"><span class="nav-text">2.3.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-分类"><span class="nav-text">2.3.2 分类</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-影响因素"><span class="nav-text">2.3.3 影响因素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-VR刷新率"><span class="nav-text">2.3.4 VR刷新率</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-沉浸感"><span class="nav-text">2.4 沉浸感</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-1-定义"><span class="nav-text">2.4.1 定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-2-沉浸理论"><span class="nav-text">2.4.2 沉浸理论</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-时延"><span class="nav-text">2.5 时延</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-6-视角平衡点"><span class="nav-text">2.6 视角平衡点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-7-余晖效应"><span class="nav-text">2.7 余晖效应</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-显示问题"><span class="nav-text">3. 显示问题</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaitza Young</span>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

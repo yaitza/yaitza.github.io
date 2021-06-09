@@ -1,0 +1,1165 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="F7u1qs7cxrGKFwGYVBckaESSUUKfgMVBnuZZUvdI5RA" />
+
+
+
+
+  <meta name="baidu-site-verification" content="3z8x68py8V" />
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Test," />
+
+
+
+
+
+  <link rel="alternate" href="/true" title="Yaitza" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1.需求分析概念&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在系统工程及软件工程中，需求分析指的是在创建一个新的或改变一个现存的系统或产品时，确定新系统的目的、范围、定义和功能时所要做的所有工作。需求分析是软件工程中的一个关键过程。在这个过程中，系统分析员和软件工程师确定顾客的需要。只有在确定了这些需要后他们才能够分析和寻求新系统的解决方法。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;需求">
+<meta property="og:type" content="article">
+<meta property="og:title" content="测试分析">
+<meta property="og:url" content="http://yaitza.cn/2017/07/18/2017-07-18-TestAnalysis-Model/index.html">
+<meta property="og:site_name" content="Yaitza">
+<meta property="og:description" content="1.需求分析概念&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;在系统工程及软件工程中，需求分析指的是在创建一个新的或改变一个现存的系统或产品时，确定新系统的目的、范围、定义和功能时所要做的所有工作。需求分析是软件工程中的一个关键过程。在这个过程中，系统分析员和软件工程师确定顾客的需要。只有在确定了这些需要后他们才能够分析和寻求新系统的解决方法。&amp;nbsp;&amp;nbsp;&amp;nbsp;&amp;nbsp;需求">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-07-18-TestAnalysis-Model.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2-2017-07-18-TestAnalysis-Model.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/3-2017-07-18-TestAnalysis-Model.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/4-2017-07-18-TestAnalysis-Model.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/5-2017-07-18-TestAnalysis-Model.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/6-2017-07-18-TestAnalysis-Model.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/7-2017-07-18-TestAnalysis-Model.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/8-2017-07-18-TestAnalysis-Model.png">
+<meta property="article:published_time" content="2017-07-17T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-09T00:57:57.164Z">
+<meta property="article:author" content="Yaitza Young">
+<meta property="article:tag" content="Test">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-07-18-TestAnalysis-Model.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yaitza.cn/2017/07/18/2017-07-18-TestAnalysis-Model/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 测试分析 | Yaitza </title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97814311-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6df12946920b864a0ece38cbc1f9af63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279058270&web_id=1279058270" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yaitza</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yaitza.cn/2017/07/18/2017-07-18-TestAnalysis-Model/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yaitza Young">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yaitza">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yaitza" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                测试分析
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-07-18T00:00:00+08:00">
+                2017-07-18
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+		   
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.7k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  10
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-需求分析概念"><a href="#1-需求分析概念" class="headerlink" title="1.需求分析概念"></a>1.需求分析概念</h1><p>&nbsp;&nbsp;&nbsp;&nbsp;在系统工程及软件工程中，需求分析指的是在创建一个新的或改变一个现存的系统或产品时，确定新系统的目的、范围、定义和功能时所要做的所有工作。需求分析是软件工程中的一个关键过程。在这个过程中，系统分析员和软件工程师确定顾客的需要。只有在确定了这些需要后他们才能够分析和寻求新系统的解决方法。<br>&nbsp;&nbsp;&nbsp;&nbsp;需求分析的质量，考虑是否周全将直接关系到后续工作的开展。</p>
+<h1 id="2-需求分析视角"><a href="#2-需求分析视角" class="headerlink" title="2. 需求分析视角"></a>2. 需求分析视角</h1><h2 id="2-1-视角的分类"><a href="#2-1-视角的分类" class="headerlink" title="2.1 视角的分类"></a>2.1 视角的分类</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;作为一名测试人员，我们接触到更多的是产品经理的需求文档，每当我们从产品经理手中接过需求文档时，往往心中的第一个疑问就是怎么“看”，在解答这个问题之前，我们先来了解下关于“需求三个视角”的描述：</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-07-18-TestAnalysis-Model.png" alt="pic1"> </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;将需求分为三个视角解读：数据视角、功能视角和行为视角，并分别列举了类图，活动图和状态图，同时还特别强调了三种视角并非独立存在而是具有一定融合、交叉的关系。</p>
+<pre><code>数据视图：描述输入输出数据结构、静态结构及依赖关系(也称为结构视图)。  
+功能视图：描述系统实现的功能，输入输出数据的处理。  
+行为视图：描述系统如何运行和具体功能实现。  </code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;因此，当接到一个业务需求、产品特性或是整个系统时，我们可以通过这三个视角来解读被测系统。那么，每一种视角究竟有哪些工具可以让我们进行选择使用呢？</p>
+<pre><code>从结构上来说，有类图[1]，E-R图[2]，组件图[3]；  
+从功能上来说，有用例图[4]，因果图[5]，决策表[6]；  
+从行为上来说，有活动图[7]，状态图[8]，序列图[9]。  </code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;特定的视角惯以常用的分析图，为了达到更加便捷，清晰地阐明需求，使得需求覆盖更加完全。</p>
+<h2 id="2-2-视角的选择"><a href="#2-2-视角的选择" class="headerlink" title="2.2 视角的选择"></a>2.2 视角的选择</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;选择合适的切入口对产品需求进行快速有效地分析。</p>
+<h3 id="2-2-1-根据需求特点选择"><a href="#2-2-1-根据需求特点选择" class="headerlink" title="2.2.1 根据需求特点选择"></a>2.2.1 根据需求特点选择</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;“名词”较多的优先选择结构视图。<br>&nbsp;&nbsp;&nbsp;&nbsp;“功能、逻辑、算法”较多的优先选择功能视图。</p>
+<h3 id="2-2-2-根据项目阶段来判断"><a href="#2-2-2-根据项目阶段来判断" class="headerlink" title="2.2.2 根据项目阶段来判断"></a>2.2.2 根据项目阶段来判断</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;需求评审阶段：这个阶段的目标是消除歧义、达成一致，测试建模的主要功能也是促进理解和交流，因此，这个阶段我们使用各类视图建模时不易过度关注细节，大体描述主要流程即可，我们可以随着项目的开展对模型进行迭代更新。<br>&nbsp;&nbsp;&nbsp;&nbsp;产品实现阶段：产品实现过程中，同时关注各种视图中的细节更有利于理解和评审真实实现逻辑，修正测试模型，生成高质量测试方案。根据产品设计构建的模型还可以用来检验设计的正确性合理性。但是要注意避免通过代码实现来推到测试模型。<br>&nbsp;&nbsp;&nbsp;&nbsp;产品提测阶段：提测时主要是对照已有模型（如果前期有建模准备）进行更新补充；或者直接应用探索式测试相关的启发式边建模边测试边反馈修正。</p>
+<h3 id="2-2-3-根据个人喜好"><a href="#2-2-3-根据个人喜好" class="headerlink" title="2.2.3 根据个人喜好"></a>2.2.3 根据个人喜好</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;“当你无从下手的时候，就从活动图开始”。其实道理很简单，活动图（流程图）似乎与生俱来一直都很熟悉。熟悉的视角肯定能让我们更快的入手，但更重要的一点是一定不能忽视从其他的视角去做一些补充。<br>&nbsp;&nbsp;&nbsp;&nbsp;通过以上视角对需求的理解与分析，将测试思路与内容转化为条理清晰，覆盖全面的测试用例是我们的诉求。</p>
+<h2 id="2-3-测试模型"><a href="#2-3-测试模型" class="headerlink" title="2.3 测试模型"></a>2.3 测试模型</h2><p>&nbsp;&nbsp;&nbsp;&nbsp;对于上文提到不同视角对需求进行分析提炼，最终生成对于我们有用的测试用例；将这个过程方法论就是我们的测试模型。</p>
+<h3 id="2-3-1-测试模型的概念"><a href="#2-3-1-测试模型的概念" class="headerlink" title="2.3.1 测试模型的概念"></a>2.3.1 测试模型的概念</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;测试建模，将测试思路或内容形成条理清晰、系统全面的模型而展开的测试（MBT）。</p>
+<pre><code>SUT：System Under Test，被测系统模型，也称类比模型。
+TRM：Test Ready Model，测试准备模型，也称分析模型。</code></pre><h4 id="2-3-1-1-SUT模型"><a href="#2-3-1-1-SUT模型" class="headerlink" title="2.3.1.1 SUT模型"></a>2.3.1.1 SUT模型</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;SUT模型是心智模型（对产品的理解、设想和体验）的外化（以及与现有模型的整合），是一种图形化或形式化的类比模型。它涉及到不同的层次（如系统、组件和工作环境）、不同视角（如语境/上下文、组件与结构、功能、行为和用户体验）和不同关注点（如数据类型、因果关联、程序结构、任务控制、动作、事件和接口）等。</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2-2017-07-18-TestAnalysis-Model.png" alt="pic2"> </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;经过抽象、泛化和删减后，SUT模型只保留有助于实现特定测试目的的特征。在生成可执行测试用例前，SUT模型的实例化可能用到的技术（如Figure 2）包括Finite State Machine (FSM)，Message Sequence Chart (MSC)， Control Flow Graph (CFG)，Event Flow Diagram，MarkovChains和UML Testing Profile 等。</p>
+<h4 id="2-3-1-2-TRM模型"><a href="#2-3-1-2-TRM模型" class="headerlink" title="2.3.1.2 TRM模型"></a>2.3.1.2 TRM模型</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;TRM模型是对SUT模型的扩展和转化，以使模型达到可测试的标准；该模型也可独立使用，即给出相关信息，我们就可以设计或使用一套测试设计算法，用来产生可以运行的测试用例。它根据SUT模型特征和项目实际情况增加或凸显质量风险信息。必要时TRM需要创建新的模型，这是测试建模的主要难点之一，但也体现了我们价值所在。另外，它转化SUT模型以达到可测试标准，并增加“怎么测”的信息，同时为SUT模型修改重构提供反馈。</p>
+<h4 id="2-3-1-3-SUT与TRM区别"><a href="#2-3-1-3-SUT与TRM区别" class="headerlink" title="2.3.1.3 SUT与TRM区别"></a>2.3.1.3 SUT与TRM区别</h4><p>&nbsp;&nbsp;&nbsp;&nbsp;SUT和TRM模型有密切的关系，那么它们的侧重点有哪些区别呢？相对来说，SUT层次更高，更温和，以描述被测对象为己任（更抽象）；而TRM更接地气，更直接，以揭露风险为使命（更具体）。实践中，TRM模型一般以发现SUT的潜在风险为导向。与SUT建模相比，TRM缺少现成的系统的方法论指导，缺少可参考借鉴的方法，更倚重经验，却缺少经验积累。</p>
+<table>
+<thead>
+<tr>
+<th>SUT</th>
+<th>TRM</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>描绘了测试对象</td>
+<td>体现测试策略，如测什么，测多少及怎么测</td>
+</tr>
+<tr>
+<td>系统思维</td>
+<td>创造性思维</td>
+</tr>
+<tr>
+<td>“面”(等价类，平均值)</td>
+<td>“点”(边界值)</td>
+</tr>
+<tr>
+<td>构建为目的，重点关注可能产生质量风险的地方</td>
+<td>直接为“破坏”，“攻击”服务，关注如何揭露质量问题</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-2-测试建模的方法"><a href="#2-3-2-测试建模的方法" class="headerlink" title="2.3.2 测试建模的方法"></a>2.3.2 测试建模的方法</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;测试建模的方法从宏观上来看，主要分为SUT建模和TRM建模。从微观上来看又派生了很多的模型。在实际工作中，我们拿到被测系统后，会在脑海里进行瞬时画像建模，也就是构建了心智模型。而从心智模型过渡到测试用例，中间过程的不同决定了不同的测试设计，如下图所示。</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/3-2017-07-18-TestAnalysis-Model.png" alt="pic3"> </p>
+<pre><code>路径一[红色箭头]：从心智模型（Mental Model）直接得到测试用例（Ad-hoc Test Design，基于临时需求）；
+路径二[黄色箭头]：从心智模型得到TRM模型，再由TRM模型生成测试用例（TraditionalExploratory传统测试设计）；
+路径三[蓝色箭头&amp;紫色箭头]：从心智模型到SUT模型，再由SUT模型生成测试用例（教科书式）；
+路径四[蓝色箭头]：从心智模型到SUT模型，再由SUT模型到TRM模型，最终由TRM模型生成测试用例（MBT）。</code></pre><p>&nbsp;&nbsp;&nbsp;&nbsp;由上图所示，MBT强调中间过程。特别说明的是，MBT是一个循序渐进、逐步完善的过程，需要将被测系统的各个方面进行考虑，在发布周期之前形成完善的模型有利于整个产品的开发、测试和发布等工作，如下图所示。</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/4-2017-07-18-TestAnalysis-Model.png" alt="pic4"></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;我们拿到被测需求后，首先会进行SUT抽象建模；分析需求进行TRM建模；初步模型验证；基于模型可控地生成测试用例；优化并生成可执行测试用例。根据用户关注重点的差异，第一步可以对被测系统进行功能建模，也可以进行用户使用环境建模；第四步可以针对一些模式（Patterns）或测试特异性（Test specifications）来生成用例，也可以根据测试覆盖率等软件测试度量规则（Criteria）来生成测试用例。</p>
+<h3 id="2-3-3-怎样展开测试建模"><a href="#2-3-3-怎样展开测试建模" class="headerlink" title="2.3.3 怎样展开测试建模"></a>2.3.3 怎样展开测试建模</h3><p>&nbsp;&nbsp;&nbsp;&nbsp;在实际测试过程中，我们拿到的输入通常是需求说明书或是开发的实现代码等，经过测试人员的建模加工后，最终生成测试用例。针对需求分析从整体角度，我们往往会使用相关模型分析深入理解被测需求（包括识别关键变量），基于分析结果再进行具体的模型构建，如业务流程图、决策树等等；接着，结合关键变量进行风险分析，完善模型；最终将模型通过自动化或手工方式转换成用例。</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/5-2017-07-18-TestAnalysis-Model.png" alt="pic5"></p>
+<h3 id="2-3-4-实例解析"><a href="#2-3-4-实例解析" class="headerlink" title="2.3.4 实例解析"></a>2.3.4 实例解析</h3><p><strong>需求描述</strong></p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/6-2017-07-18-TestAnalysis-Model.png" alt="pic6"> </p>
+<p><strong>需求理解</strong></p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;SUT建模</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/7-2017-07-18-TestAnalysis-Model.png" alt="pic7"> </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;SUT转化为TRM模型</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/8-2017-07-18-TestAnalysis-Model.png" alt="pic8"> </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp;根据TRM各个节点测判断依据生成对应的测试用例。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><pre><code>[1]类图：http://www.uml.org.cn/oobject/201211231.asp
+[2]E-R图：https://zh.wikipedia.org/wiki/ER%E6%A8%A1%E5%9E%8B
+[3]组件图：http://blog.csdn.net/fanxiaobin577328725/article/details/51647248
+[4]因果图：http://blog.csdn.net/vincetest/article/details/1475414
+[5]活动图：http://www.cnblogs.com/ywqu/archive/2009/12/14/1624082.html
+[6]决策表：http://www.51testing.com/html/70/n-3578470.html
+[7]状态图：http://www.cnblogs.com/ywqu/archive/2009/12/17/1626043.html
+[8]用例图：https://yaitza.github.io/2017-05-13-UML-Case
+[9]序列图：http://blog.csdn.net/tianhai110/article/details/6361338</code></pre>
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Test/" rel="tag"># Test</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>🐶 您的支持将鼓励我继续创作 🐶</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.jpg" alt="Yaitza Young WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.jpg" alt="Yaitza Young Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+        
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Yaitza Young 的个人博客">Yaitza Young</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://yaitza.cn/2017/07/18/2017-07-18-TestAnalysis-Model/" title="测试分析">测试分析</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://yaitza.cn/2017/07/18/2017-07-18-TestAnalysis-Model/" title="测试分析">http://yaitza.cn/2017/07/18/2017-07-18-TestAnalysis-Model/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年7月18日 - 00时07分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Yaitza Young 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/07/18/2017-07-18-TestCase-CauseAndEffectDiagram/" rel="next" title="用例设计之因果图">
+                <i class="fa fa-chevron-left"></i> 用例设计之因果图
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/07/20/2017-07-20-TestAnalysis-NLP/" rel="prev" title="The NLP Meta Model">
+                The NLP Meta Model <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODM2NS80OTM3"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yaitza Young" />
+          <p class="site-author-name" itemprop="name">Yaitza Young</p>
+          <p class="site-description motion-element" itemprop="description">yaitza's steps</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/true" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yaitza" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/jay-Come-on/" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  cnblogs
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.woaitqs.cc/" title="Qisen Tang" target="_blank">Qisen Tang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://szhshp.org" title="szhshp的博客" target="_blank">szhshp的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.zhangwei.website" title="JuniorCoder" target="_blank">JuniorCoder</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-需求分析概念"><span class="nav-text">1.需求分析概念</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-需求分析视角"><span class="nav-text">2. 需求分析视角</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-视角的分类"><span class="nav-text">2.1 视角的分类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-视角的选择"><span class="nav-text">2.2 视角的选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-1-根据需求特点选择"><span class="nav-text">2.2.1 根据需求特点选择</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-2-根据项目阶段来判断"><span class="nav-text">2.2.2 根据项目阶段来判断</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-3-根据个人喜好"><span class="nav-text">2.2.3 根据个人喜好</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-测试模型"><span class="nav-text">2.3 测试模型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1-测试模型的概念"><span class="nav-text">2.3.1 测试模型的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-1-SUT模型"><span class="nav-text">2.3.1.1 SUT模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-2-TRM模型"><span class="nav-text">2.3.1.2 TRM模型</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-1-3-SUT与TRM区别"><span class="nav-text">2.3.1.3 SUT与TRM区别</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2-测试建模的方法"><span class="nav-text">2.3.2 测试建模的方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3-怎样展开测试建模"><span class="nav-text">2.3.3 怎样展开测试建模</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4-实例解析"><span class="nav-text">2.3.4 实例解析</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-text">参考文献</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaitza Young</span>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

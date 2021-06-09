@@ -1,0 +1,1124 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="F7u1qs7cxrGKFwGYVBckaESSUUKfgMVBnuZZUvdI5RA" />
+
+
+
+
+  <meta name="baidu-site-verification" content="3z8x68py8V" />
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="测试理论," />
+
+
+
+
+
+  <link rel="alternate" href="/true" title="Yaitza" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="工作这么多年，经常听到有人在说冒烟测试，β测试，UAT测试等等；但是随着进入项目逐渐熟悉起来，也跟着喊了。经常是刚进来的人一头雾水。我们从未去深究为什么有这样的命名，也没有去深究那几个英文字母是哪几个单词的缩写。 1. 软件测试分类按照生命周期的软件测试概念，测试对象应包括软件设计开发的各个阶段的内容，对于需求和设计阶段的测试以及关于文档的测试将在面向对象与文档测试部分进行描述。根据不同的开发阶段">
+<meta property="og:type" content="article">
+<meta property="og:title" content="软件测试分类">
+<meta property="og:url" content="http://yaitza.cn/2020/07/28/2020-07-28-Test-Classification/index.html">
+<meta property="og:site_name" content="Yaitza">
+<meta property="og:description" content="工作这么多年，经常听到有人在说冒烟测试，β测试，UAT测试等等；但是随着进入项目逐渐熟悉起来，也跟着喊了。经常是刚进来的人一头雾水。我们从未去深究为什么有这样的命名，也没有去深究那几个英文字母是哪几个单词的缩写。 1. 软件测试分类按照生命周期的软件测试概念，测试对象应包括软件设计开发的各个阶段的内容，对于需求和设计阶段的测试以及关于文档的测试将在面向对象与文档测试部分进行描述。根据不同的开发阶段">
+<meta property="article:published_time" content="2020-07-27T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-09T00:57:57.167Z">
+<meta property="article:author" content="Yaitza Young">
+<meta property="article:tag" content="测试理论">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yaitza.cn/2020/07/28/2020-07-28-Test-Classification/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 软件测试分类 | Yaitza </title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97814311-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6df12946920b864a0ece38cbc1f9af63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279058270&web_id=1279058270" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yaitza</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yaitza.cn/2020/07/28/2020-07-28-Test-Classification/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yaitza Young">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yaitza">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yaitza" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                软件测试分类
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-07-28T00:00:00+08:00">
+                2020-07-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+		   
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>工作这么多年，经常听到有人在说冒烟测试，β测试，UAT测试等等；但是随着进入项目逐渐熟悉起来，也跟着喊了。经常是刚进来的人一头雾水。我们从未去深究为什么有这样的命名，也没有去深究那几个英文字母是哪几个单词的缩写。</p>
+<h1 id="1-软件测试分类"><a href="#1-软件测试分类" class="headerlink" title="1. 软件测试分类"></a>1. 软件测试分类</h1><p>按照生命周期的软件测试概念，测试对象应包括软件设计开发的各个阶段的内容，对于需求和设计阶段的测试以及关于文档的测试将在面向对象与文档测试部分进行描述。根据不同的开发阶段，测试实施组织以及测试技术，可以对测试进行不同的分类，已区分各个阶段的测试工作，测试人员以及采用的各种测试技术。</p>
+<table>
+<thead>
+<tr>
+<th>划分依据</th>
+<th>测试分类</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>开发阶段</td>
+<td>单元测试-&gt;集成测试-&gt;系统测试-&gt;确认测试-&gt;验收测试</td>
+</tr>
+<tr>
+<td>实施组织</td>
+<td>开发方测试-&gt;用户测试(β测试)-&gt;第三方测试</td>
+</tr>
+<tr>
+<td>测试技术</td>
+<td>白盒测试，黑盒测试，灰盒测试</td>
+</tr>
+</tbody></table>
+<h1 id="2-按照开发阶段划分"><a href="#2-按照开发阶段划分" class="headerlink" title="2. 按照开发阶段划分"></a>2. 按照开发阶段划分</h1><p>按照开发阶段划分软件测试分为：单元测试，集成测试，系统测试，确认测试和验收测试。</p>
+<h2 id="2-1-单元测试"><a href="#2-1-单元测试" class="headerlink" title="2.1 单元测试"></a>2.1 单元测试</h2><p>单元测试又称模块测试，是针对软件设计的最小单位————程序模块进行正确性检验的测试工作。其目的在于检查每个程序单元能否正确实现详细设计说明中的模块功能、性能、接口和设计约束等要求，发现各模块内部可能存在的各种错误。单元测试需需要从程序内部结构出发设计测试用例。多个模块可以平行地独立进行单元测试。</p>
+<h2 id="2-2-集成测试-组装测试，SIT测试"><a href="#2-2-集成测试-组装测试，SIT测试" class="headerlink" title="2.2 集成测试(组装测试，SIT测试)"></a>2.2 集成测试(组装测试，SIT测试)</h2><p>集成测试也叫组装测试，也称为SIT测试(System Integration Test)。通常在单元测试的基础上，将所有的程序模块进行有序的，递增的测试。集成测试是检验程序单元或部件的接口关系，逐步集成为符合概要设计要求的程序部件或整个系统。</p>
+<p>软件集成的过程是一个持续的过程，会形成很多个临时版本，在不断的集成过程中，功能集成的稳定性是真正的挑战。在每个版本提交时，都需要进行<strong>冒烟测试</strong>，即对程序主要功能进行测试。冒烟测试也叫版本验证测试、提交测试。</p>
+<h2 id="2-3-确认测试"><a href="#2-3-确认测试" class="headerlink" title="2.3 确认测试"></a>2.3 确认测试</h2><p>确认测试是通过检验和提供客观证据，证实软件是否满足特定预期用途的需求。确认测试时检测与证实软件是否满足软件需求说明书中规定的要求。</p>
+<h2 id="2-4-系统测试-ST测试"><a href="#2-4-系统测试-ST测试" class="headerlink" title="2.4 系统测试(ST测试)"></a>2.4 系统测试(ST测试)</h2><p>系统测试(System Test)是为验证和确认系统是否达到其原始目标，而对集成的硬件和软件系统进行的测试。系统测试是在真实或模拟系统运行的环境下，检查完整的程序系统能否和系统(包括硬件，外设，网络和系统软件，支持平台等)正确配置，连接，并满足用户需求。</p>
+<h2 id="2-5-验收测试-UAT测试"><a href="#2-5-验收测试-UAT测试" class="headerlink" title="2.5 验收测试(UAT测试)"></a>2.5 验收测试(UAT测试)</h2><p>按照项目任务或合同、供需双方约定的验收依据文档进行的对整个系统的测试与评审，决定是否接收或拒收系统。也常被称为(UAT 测试：User Acceptance Test)。</p>
+<h1 id="3-按照测试实施组织划分"><a href="#3-按照测试实施组织划分" class="headerlink" title="3 按照测试实施组织划分"></a>3 按照测试实施组织划分</h1><p>按照测试实施组织划分，软件测试可分为开发方测试，用户测试(β测试)、第三方测试。</p>
+<h2 id="3-1-开发方测试"><a href="#3-1-开发方测试" class="headerlink" title="3.1 开发方测试"></a>3.1 开发方测试</h2><p>通常也叫“验证测试”或“α测试”。开发方通过检测和提供客观证据，证实软件的实现是否满足规定的需求。验证测试是在软件开发环境下，由开发者检测与证实软件的实现是否满足软件设计说明或软件需求说明的要求。主要是指在软件开发完成以后，开发方对要提交的软件进行全面的自我检查与验证，可以和软件的“系统测试”一并进行。</p>
+<h2 id="3-2-用户测试"><a href="#3-2-用户测试" class="headerlink" title="3.2 用户测试"></a>3.2 用户测试</h2><p>在用户的应用环境下，用户通过运行和使用软件，检测与核实软件实现是否符合自己预期的要求。通常情况用户测试不是指用户的“验收测试”，而是指用户的使用性测试，由用户找出软件的应用过程中发现的软件的缺陷与问题，并对使用质量进行评价。</p>
+<p>β测试通常被看成是一种“用户测试”。β测试主要是把软件产品有计划地免费分发到目标市场，让用户大量使用，并评价、检查软件。通过用户各种方式的大量使用，来发现软件存在的问题与错误，把信息反馈给开发者修改。β测试中厂商获取的信息，可以有助于软件产品的发布。</p>
+<h2 id="3-3-第三方测试"><a href="#3-3-第三方测试" class="headerlink" title="3.3 第三方测试"></a>3.3 第三方测试</h2><p>介于软件开发方与用户方之间的测试组织的测试。第三方测试也称为独立测试。软件质量工程工程强调开展独立验证和确认活动。软件第三方测试也就是由在技术、管理和财务上与开发方和用户方相对独立的组织进行的软件测试。一般情况下是在模拟用户真实应用环境下，进行软件确认测试。</p>
+<h1 id="4-按照测试技术划分"><a href="#4-按照测试技术划分" class="headerlink" title="4 按照测试技术划分"></a>4 按照测试技术划分</h1><p>按照测试技术划分：白盒测试、黑盒测试、灰盒测试。也可划分为静态测试和动态测试。静态测试是指不运行程序，通过人工对程序和文档进行分析与检查；静态测试技术又称为静态分析技术，静态测试实际上是对软件中的需求说明书、设计说明书、程序源代码等进行非运行的检查，静态测试包括：走查、符合执行、需求确认等。动态测试是指通过人工或使用工具运行程序进行检查、分析程序的执行状态和程序的外部表现。我们这里讨论的白盒测试，黑盒测试，灰盒测试，在实际测试方法上既包括了动态测试也包括了静态测试。</p>
+<h2 id="4-1-白盒测试"><a href="#4-1-白盒测试" class="headerlink" title="4.1 白盒测试"></a>4.1 白盒测试</h2><p>通过对程序内部结构的分析、检测来寻找问题。白盒测试可以把程序看成装在一个透明的盒子里，也就是清楚了解程序结构和处理过程，检查是否所有的结构及路径都是正确的，检查软件内部动作是否按照设计说明的规定正常进行。白盒测试又称结构测试。</p>
+<h2 id="4-2-灰盒测试"><a href="#4-2-灰盒测试" class="headerlink" title="4.2 灰盒测试"></a>4.2 灰盒测试</h2><p>通过软件的外部表现来发现其缺陷和错误。黑盒测试法把测试对象看成一个黑盒子，完全不考虑程序内部结构和处理过程。黑盒测试是在程序界面处进行测试，它只是检查程序是否按照需求规格说明书的规定正常实现。</p>
+<h2 id="4-3-灰盒测试"><a href="#4-3-灰盒测试" class="headerlink" title="4.3 灰盒测试"></a>4.3 灰盒测试</h2><p>介于白盒测试与黑盒测试之间的测试。灰盒测试关注输出对于输入的正确性；同时也关注内部表现，但这种关注不像白盒测试那样详细、完整，只是通过一些表征性的现象、事件、标志来判断内部运行的状态。</p>
+<p>灰盒测试结合了白盒测试和黑盒测试的要素。它考虑了用户端、特定的系统知识和操作环境。它在系统组件的协同性环境中评价应用软件的设计。</p>
+<p>软件测试方法和技术的分类与软件开发过程相关联，它贯穿了整个软件生命周期。走查、单元测试、集成测试、系统测试用于整个开发过程中的不同阶段。开发文档和源程序可以应用单元测试或应用走查的的方法；单元测试可应用白盒测试的方法；集成测试应用近似灰盒测试方法；而系统测试和确认测试应用黑盒测试方法。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E7%90%86%E8%AE%BA/" rel="tag"># 测试理论</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>🐶 您的支持将鼓励我继续创作 🐶</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.jpg" alt="Yaitza Young WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.jpg" alt="Yaitza Young Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+        
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Yaitza Young 的个人博客">Yaitza Young</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://yaitza.cn/2020/07/28/2020-07-28-Test-Classification/" title="软件测试分类">软件测试分类</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://yaitza.cn/2020/07/28/2020-07-28-Test-Classification/" title="软件测试分类">http://yaitza.cn/2020/07/28/2020-07-28-Test-Classification/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2020年7月28日 - 00时07分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Yaitza Young 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/07/27/2020-07-27-Inferiority-and-Transcendence/" rel="next" title="《自卑与超越》读后感">
+                <i class="fa fa-chevron-left"></i> 《自卑与超越》读后感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/07/29/2020-07-29-Testcase-Boundary-Value-Analysis/" rel="prev" title="用例设计之边界值">
+                用例设计之边界值 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODM2NS80OTM3"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yaitza Young" />
+          <p class="site-author-name" itemprop="name">Yaitza Young</p>
+          <p class="site-description motion-element" itemprop="description">yaitza's steps</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/true" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yaitza" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/jay-Come-on/" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  cnblogs
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.woaitqs.cc/" title="Qisen Tang" target="_blank">Qisen Tang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://szhshp.org" title="szhshp的博客" target="_blank">szhshp的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.zhangwei.website" title="JuniorCoder" target="_blank">JuniorCoder</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-软件测试分类"><span class="nav-text">1. 软件测试分类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-按照开发阶段划分"><span class="nav-text">2. 按照开发阶段划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-单元测试"><span class="nav-text">2.1 单元测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-集成测试-组装测试，SIT测试"><span class="nav-text">2.2 集成测试(组装测试，SIT测试)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3-确认测试"><span class="nav-text">2.3 确认测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-4-系统测试-ST测试"><span class="nav-text">2.4 系统测试(ST测试)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-5-验收测试-UAT测试"><span class="nav-text">2.5 验收测试(UAT测试)</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-按照测试实施组织划分"><span class="nav-text">3 按照测试实施组织划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-开发方测试"><span class="nav-text">3.1 开发方测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-用户测试"><span class="nav-text">3.2 用户测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-第三方测试"><span class="nav-text">3.3 第三方测试</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4-按照测试技术划分"><span class="nav-text">4 按照测试技术划分</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-白盒测试"><span class="nav-text">4.1 白盒测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-灰盒测试"><span class="nav-text">4.2 灰盒测试</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3-灰盒测试"><span class="nav-text">4.3 灰盒测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaitza Young</span>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,1286 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="F7u1qs7cxrGKFwGYVBckaESSUUKfgMVBnuZZUvdI5RA" />
+
+
+
+
+  <meta name="baidu-site-verification" content="3z8x68py8V" />
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="测试设计," />
+
+
+
+
+
+  <link rel="alternate" href="/true" title="Yaitza" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="注：以下文章来源于阿里巴巴技术质量 ，作者麒烨。 测试分析与设计测试是一门精细的学科，新人同学很容易有的误区是认为做测试主要就是编写测试用例和执行测试用例，进阶能力是写自动化脚本或研发工具。而实际上，测试人员最难修炼的是测试分析能力，测试分析能力是衡量一位测试同学是否专业的分水岭。分析除了使用方法，还需要有对业务、经验、质量的深度理解。自动化或工具实际是对分析和设计结果的一种实现，分析和设计的有效">
+<meta property="og:type" content="article">
+<meta property="og:title" content="如何做到测试场景不遗漏？">
+<meta property="og:url" content="http://yaitza.cn/2020/12/08/2020-12-08-Test-Scenes/index.html">
+<meta property="og:site_name" content="Yaitza">
+<meta property="og:description" content="注：以下文章来源于阿里巴巴技术质量 ，作者麒烨。 测试分析与设计测试是一门精细的学科，新人同学很容易有的误区是认为做测试主要就是编写测试用例和执行测试用例，进阶能力是写自动化脚本或研发工具。而实际上，测试人员最难修炼的是测试分析能力，测试分析能力是衡量一位测试同学是否专业的分水岭。分析除了使用方法，还需要有对业务、经验、质量的深度理解。自动化或工具实际是对分析和设计结果的一种实现，分析和设计的有效">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/1-2020-12-08-Test-Scenes.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/2-2020-12-08-Test-Scenes.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/3-2020-12-08-Test-Scenes.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/4-2020-12-08-Test-Scenes.jpg">
+<meta property="article:published_time" content="2020-12-07T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-09T00:57:57.168Z">
+<meta property="article:author" content="Yaitza Young">
+<meta property="article:tag" content="测试设计">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/1-2020-12-08-Test-Scenes.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yaitza.cn/2020/12/08/2020-12-08-Test-Scenes/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 如何做到测试场景不遗漏？ | Yaitza </title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97814311-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6df12946920b864a0ece38cbc1f9af63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279058270&web_id=1279058270" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yaitza</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yaitza.cn/2020/12/08/2020-12-08-Test-Scenes/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yaitza Young">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yaitza">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yaitza" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                如何做到测试场景不遗漏？
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-12-08T00:00:00+08:00">
+                2020-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+		   
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  2.2k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  7
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p><strong>注：</strong>以下文章来源于阿里巴巴技术质量 ，作者麒烨。</p>
+<h1 id="测试分析与设计"><a href="#测试分析与设计" class="headerlink" title="测试分析与设计"></a>测试分析与设计</h1><p>测试是一门精细的学科，新人同学很容易有的误区是认为做测试主要就是编写测试用例和执行测试用例，进阶能力是写自动化脚本或研发工具。而实际上，测试人员最难修炼的是测试分析能力，测试分析能力是衡量一位测试同学是否专业的分水岭。分析除了使用方法，还需要有对业务、经验、质量的深度理解。自动化或工具实际是对分析和设计结果的一种实现，分析和设计的有效会决定实现的效果。</p>
+<h2 id="分析与设计过程"><a href="#分析与设计过程" class="headerlink" title="分析与设计过程"></a>分析与设计过程</h2><p>测试分析要从业务需求最开始就要介入，流程覆盖业务整个生命周期。在做分析的过程要想清楚，整体后续的设计怎么做。<br>测试分析可总结为四步</p>
+<ul>
+<li>建模 - 输出业务/系统流程（分析：业务流程 - 系统流程）</li>
+<li>设计 - 测试场景（设计：测试场景）</li>
+<li>细分 - 测试用例/数据（设计：测试用例）</li>
+<li>扩展 - 多类型测试（性能，安全，异常等等）（基于经验）</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/1-2020-12-08-Test-Scenes.jpg" alt="TestScense"></p>
+<h2 id="测试场景分析实施"><a href="#测试场景分析实施" class="headerlink" title="测试场景分析实施"></a>测试场景分析实施</h2><p>测试场景和测试用例区别是什么？为什么先要设计测试场景？</p>
+<p>上图也描述了，测试场景对应的是实际的业务场景，业务场景是业务流程中因不同的事件触发后的业务情景。比如银行取款的业务办理流程，会因为用户的身份（VIP与否）、取款金额（大额，小额）、卡内余额（足额取，不足额取）等诸多因素，导致最后取款的结果和过程分支产生不同。测试场景就是对这类事件触发时的业务情景在质量角度的描述。而测试用例是对测试场景在测试范围和测试点的详细覆盖。</p>
+<h3 id="第一步：根据业务的目标（价值）、类别、技术等输入，确定业务场景分析的范围。"><a href="#第一步：根据业务的目标（价值）、类别、技术等输入，确定业务场景分析的范围。" class="headerlink" title="第一步：根据业务的目标（价值）、类别、技术等输入，确定业务场景分析的范围。"></a>第一步：根据业务的目标（价值）、类别、技术等输入，确定业务场景分析的范围。</h3><p>业务分析就是需求分析的过程。这里不仅仅考虑需求的功能逻辑，还需要结合不同业务类型，根据历史业务经验沉淀和风险沉淀进行综合考虑。可以参考用下图进行前期梳理。</p>
+<table>
+<thead>
+<tr>
+<th>需求类型</th>
+<th>资源&amp;方法需求</th>
+<th>必须覆盖点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主业务类需求</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>技改类需求</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>全链路</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>外部商家需求</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>大促&amp;BU核心项目</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="第二步：业务流程梳理（业务场景）"><a href="#第二步：业务流程梳理（业务场景）" class="headerlink" title="第二步：业务流程梳理（业务场景）"></a>第二步：业务流程梳理（业务场景）</h3><p>将需求说明转化为业务流程，完成事件流（基本流+备选流）以及业务分析过程和技术分析过程的梳理。细化出原子级别的场景分支。</p>
+<p><strong>事件流：</strong> 同一事件不同的触发顺序和处理结果形成事件流，事件流分为基本流和备选流<br><strong>基本流：</strong> 程序从开始执行直到成功结束所经过的最短路径。<br><strong>备选流：</strong> 一个备选流可能从基本流开始，在特定条件下执行，然后重新加入基本流中；也可起源于另一个备选流，执行后加入基本流或终止用例。根结点的备选流要具备原子性。<br>基本流和备选流：如下图所示，图中经过用例的每条路径都用基本流和备选流来表示，直黑线表示基本流，是经过用例的最简单的路径。备选流用不同的色彩表示，一个备选流可能从基本流开始，在某个特定条件下执行，然后重新加入基本流中（如备选流2和4）；也可能起源于另一个备选流（如备选流4），或者终止用例而不再重新加入到某个流（如备选流1和3）。<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/2-2020-12-08-Test-Scenes.jpg" alt="TestScense"></p>
+<p>实例：<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/3-2020-12-08-Test-Scenes.jpg" alt="TestScense"></p>
+<h3 id="第三步：场景串联"><a href="#第三步：场景串联" class="headerlink" title="第三步：场景串联"></a>第三步：场景串联</h3><p>通过第二步中拆解的场景，根据沉淀后的场景集，用组合，合并等方法梳理出所有的事件流。事件流必须100%覆盖所有的基本流+备选流组合。<br>例：<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images/Test/4-2020-12-08-Test-Scenes.jpg" alt="TestScense"></p>
+<h2 id="测试用例设计"><a href="#测试用例设计" class="headerlink" title="测试用例设计"></a>测试用例设计</h2><p>测试用例的设计很多时候是测试数据设计的过程，根据事件流（基本流+备选流）、数据和根据不同的角色，进行用例覆盖。需要确保所有场景100%覆盖。<br>例：</p>
+<table>
+<thead>
+<tr>
+<th>需求类型</th>
+<th>资源&amp;方法需求</th>
+<th>必须覆盖点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主业务类需求</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>技改类需求</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>全链路</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>外部商家需求</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>大促&amp;BU核心项目</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="非功能性设计扩展"><a href="#非功能性设计扩展" class="headerlink" title="非功能性设计扩展"></a>非功能性设计扩展</h2><p>测试用例在设计上除了考虑功能性质量属性，还需要对非功能性进行覆盖，推荐一个<strong>四字法</strong>进行设计。<br>    <strong>多：</strong>针对测试用例进行大数据量覆盖测试<br>    <strong>并：</strong>针对测试用例进行大数据量同时执行，验证并发下的测试结果<br>    <strong>复：</strong>重复的参数对同一用例进行执行测试。验证幂等结果是否符合预期。<br>    <strong>异：</strong>用非正常输入值进行用例测试。验证结果的正确性。</p>
+<h3 id="测试策略"><a href="#测试策略" class="headerlink" title="测试策略"></a>测试策略</h3><p>策略其实考虑两个问题，过程和方法：“测什么”，“怎么测”。</p>
+<ul>
+<li>你的测试对象是什么？</li>
+<li>本次测试的目标是什么？</li>
+<li>测试中重点、难点、风险是什么？</li>
+<li>测试要覆盖的深度和广度</li>
+<li>如何安排各种测试计划（先测什么，再测什么，时间资源安排）</li>
+<li>如何准出（测试结果）</li>
+</ul>
+<h2 id="测试策略可参考模版-amp-样例"><a href="#测试策略可参考模版-amp-样例" class="headerlink" title="测试策略可参考模版&amp;样例"></a>测试策略可参考模版&amp;样例</h2><hr>
+<h3 id="1-业务整体概述"><a href="#1-业务整体概述" class="headerlink" title="1. 业务整体概述"></a>1. 业务整体概述</h3><h4 id="1-1-业务背景"><a href="#1-1-业务背景" class="headerlink" title="1.1 业务背景"></a>1.1 业务背景</h4><p>业务背景介绍若干字……</p>
+<h4 id="1-2-产品目标"><a href="#1-2-产品目标" class="headerlink" title="1.2 产品目标"></a>1.2 产品目标</h4><p>产品目标介绍若干字……</p>
+<h4 id="1-3-架构目标"><a href="#1-3-架构目标" class="headerlink" title="1.3 架构目标"></a>1.3 架构目标</h4><p>架构目标介绍若干字……</p>
+<h4 id="1-4-业务目标"><a href="#1-4-业务目标" class="headerlink" title="1.4 业务目标"></a>1.4 业务目标</h4><p>业务目标介绍若干字……</p>
+<h3 id="2-项目整体分析"><a href="#2-项目整体分析" class="headerlink" title="2. 项目整体分析"></a>2. 项目整体分析</h3><h4 id="2-1-功能性需求拆解"><a href="#2-1-功能性需求拆解" class="headerlink" title="2.1 功能性需求拆解"></a>2.1 功能性需求拆解</h4><p>核心业务模块介绍，复杂度，测试点分析对应列表（此步骤为关键分析步骤）。测试分析功能点，要从产品质量标准的角度思考，针对质量特性进行功能点覆盖。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>说明</th>
+<th>使用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需求名称1</td>
+<td>需求说明1</td>
+<td>使用场景1</td>
+</tr>
+<tr>
+<td>需求名称2</td>
+<td>需求说明2</td>
+<td>使用场景2</td>
+</tr>
+</tbody></table>
+<h4 id="2-2-测试覆盖范围（涉及针对哪些质量要求的测试方法）"><a href="#2-2-测试覆盖范围（涉及针对哪些质量要求的测试方法）" class="headerlink" title="2.2 测试覆盖范围（涉及针对哪些质量要求的测试方法）"></a>2.2 测试覆盖范围（涉及针对哪些质量要求的测试方法）</h4><p>功能性、性能效率、兼容性、易用性、可靠性、安全性、易维护性、可移植性</p>
+<table>
+<thead>
+<tr>
+<th>PRD需求</th>
+<th>优先级</th>
+<th>质量特性</th>
+<th>测试覆盖度评估（深度和广度）</th>
+<th>负责测试人员</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>需求1</td>
+<td>P1</td>
+<td>功能性</td>
+<td>59</td>
+<td>xxx</td>
+</tr>
+<tr>
+<td>需求1</td>
+<td>P0</td>
+<td>功能性，性能效率</td>
+<td>33</td>
+<td>xxxx</td>
+</tr>
+<tr>
+<td>需求1</td>
+<td>P2</td>
+<td>安全性，功能性</td>
+<td>11</td>
+<td>yyyy</td>
+</tr>
+</tbody></table>
+<h4 id="2-3-测试对设计方案覆盖范围（根据开发设计文档罗列）"><a href="#2-3-测试对设计方案覆盖范围（根据开发设计文档罗列）" class="headerlink" title="2.3 测试对设计方案覆盖范围（根据开发设计文档罗列）"></a>2.3 测试对设计方案覆盖范围（根据开发设计文档罗列）</h4><table>
+<thead>
+<tr>
+<th>序号</th>
+<th>接口/设计名称</th>
+<th>接口描述</th>
+<th>对应产品码/功能描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>com.xxx.api.getInfo</td>
+<td>拿到信息</td>
+<td>用户获取信息</td>
+</tr>
+<tr>
+<td>2</td>
+<td>com.xxx.api.getInfo</td>
+<td>拿到信息</td>
+<td>用户获取信息</td>
+</tr>
+</tbody></table>
+<h3 id="3-业务流程分析"><a href="#3-业务流程分析" class="headerlink" title="3. 业务流程分析"></a>3. 业务流程分析</h3><h4 id="3-1-被测功能总体概述"><a href="#3-1-被测功能总体概述" class="headerlink" title="3.1 被测功能总体概述"></a>3.1 被测功能总体概述</h4><p>介绍若干字……</p>
+<h4 id="3-2-整体业务流程"><a href="#3-2-整体业务流程" class="headerlink" title="3.2 整体业务流程"></a>3.2 整体业务流程</h4><p>介绍若干字</p>
+<h4 id="3-3-业务模型图"><a href="#3-3-业务模型图" class="headerlink" title="3.3 业务模型图"></a>3.3 业务模型图</h4><p>介绍若干字</p>
+<h4 id="3-4-风险分析"><a href="#3-4-风险分析" class="headerlink" title="3.4 风险分析"></a>3.4 风险分析</h4><p>介绍若干字</p>
+<h3 id="4-测试场景覆盖范围"><a href="#4-测试场景覆盖范围" class="headerlink" title="4. 测试场景覆盖范围"></a>4. 测试场景覆盖范围</h3><h4 id="4-1-测试场景"><a href="#4-1-测试场景" class="headerlink" title="4.1 测试场景"></a>4.1 测试场景</h4><p>根据上一步的业务或者系统流程图，完成测试用例场景的设计</p>
+<h4 id="4-2-测试用例设计（完善测试用例，补充测试数据）"><a href="#4-2-测试用例设计（完善测试用例，补充测试数据）" class="headerlink" title="4.2 测试用例设计（完善测试用例，补充测试数据）"></a>4.2 测试用例设计（完善测试用例，补充测试数据）</h4><p>根据测试场景细化测试用例，测试用例必须对测试场景和测试覆盖范围进行100%的覆盖</p>
+<h4 id="4-3-测试数据要求"><a href="#4-3-测试数据要求" class="headerlink" title="4.3 测试数据要求"></a>4.3 测试数据要求</h4><p>介绍若干</p>
+<h4 id="4-4-其他测试补充"><a href="#4-4-其他测试补充" class="headerlink" title="4.4 其他测试补充"></a>4.4 其他测试补充</h4><p>介绍若干</p>
+<h3 id="5-测试执行计划"><a href="#5-测试执行计划" class="headerlink" title="5. 测试执行计划"></a>5. 测试执行计划</h3><p>这部分信息通常也会放在最前面。</p>
+<h4 id="5-1-人员组织"><a href="#5-1-人员组织" class="headerlink" title="5.1 人员组织"></a>5.1 人员组织</h4><p>包括哪些人参与，测试边界等</p>
+<h4 id="5-2-测试实施计划"><a href="#5-2-测试实施计划" class="headerlink" title="5.2 测试实施计划"></a>5.2 测试实施计划</h4><p>包括提测时间，联调时间等</p>
+<h4 id="5-3-交付计划"><a href="#5-3-交付计划" class="headerlink" title="5.3 交付计划"></a>5.3 交付计划</h4><h2 id="主要是里程碑和大的时间点"><a href="#主要是里程碑和大的时间点" class="headerlink" title="主要是里程碑和大的时间点"></a>主要是里程碑和大的时间点</h2><h1 id="测试报告"><a href="#测试报告" class="headerlink" title="测试报告"></a>测试报告</h1><h2 id="测试报告-1"><a href="#测试报告-1" class="headerlink" title="测试报告"></a>测试报告</h2><p>测试报告实际就是一个质量评估的过程。内容的关键在于表达清晰两点：报告的对象是谁？报告的内容是什么？测试报告不是一个项目整体结束之后的产物，而是应该在项目整个生命周期随时同步的。<br>测试报告至少需要包括的信息：  </p>
+<ul>
+<li>项目背景信息</li>
+<li>项目人员</li>
+<li>测试覆盖度（需求、功能性、非功能性）</li>
+<li>测试过程分析（执行情况）</li>
+<li>缺陷分析</li>
+<li>质量目标是否达到</li>
+<li>遗留风险以及应对措施</li>
+</ul>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/%E6%B5%8B%E8%AF%95%E8%AE%BE%E8%AE%A1/" rel="tag"># 测试设计</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>🐶 您的支持将鼓励我继续创作 🐶</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.jpg" alt="Yaitza Young WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.jpg" alt="Yaitza Young Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+        
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Yaitza Young 的个人博客">Yaitza Young</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://yaitza.cn/2020/12/08/2020-12-08-Test-Scenes/" title="如何做到测试场景不遗漏？">如何做到测试场景不遗漏？</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://yaitza.cn/2020/12/08/2020-12-08-Test-Scenes/" title="如何做到测试场景不遗漏？">http://yaitza.cn/2020/12/08/2020-12-08-Test-Scenes/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2020年12月8日 - 00时12分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Yaitza Young 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/11/27/2020-11-27-Last-BangBang/" rel="next" title="《最后的棒棒》观后感">
+                <i class="fa fa-chevron-left"></i> 《最后的棒棒》观后感
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/12/17/2020-12-17-Linux-Special-Rights/" rel="prev" title="Linux上的特殊权限">
+                Linux上的特殊权限 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODM2NS80OTM3"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yaitza Young" />
+          <p class="site-author-name" itemprop="name">Yaitza Young</p>
+          <p class="site-description motion-element" itemprop="description">yaitza's steps</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/true" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yaitza" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/jay-Come-on/" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  cnblogs
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.woaitqs.cc/" title="Qisen Tang" target="_blank">Qisen Tang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://szhshp.org" title="szhshp的博客" target="_blank">szhshp的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.zhangwei.website" title="JuniorCoder" target="_blank">JuniorCoder</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#测试分析与设计"><span class="nav-text">测试分析与设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#分析与设计过程"><span class="nav-text">分析与设计过程</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试场景分析实施"><span class="nav-text">测试场景分析实施</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#第一步：根据业务的目标（价值）、类别、技术等输入，确定业务场景分析的范围。"><span class="nav-text">第一步：根据业务的目标（价值）、类别、技术等输入，确定业务场景分析的范围。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第二步：业务流程梳理（业务场景）"><span class="nav-text">第二步：业务流程梳理（业务场景）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#第三步：场景串联"><span class="nav-text">第三步：场景串联</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试用例设计"><span class="nav-text">测试用例设计</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#非功能性设计扩展"><span class="nav-text">非功能性设计扩展</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#测试策略"><span class="nav-text">测试策略</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#测试策略可参考模版-amp-样例"><span class="nav-text">测试策略可参考模版&amp;样例</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-业务整体概述"><span class="nav-text">1. 业务整体概述</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-1-业务背景"><span class="nav-text">1.1 业务背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-2-产品目标"><span class="nav-text">1.2 产品目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-3-架构目标"><span class="nav-text">1.3 架构目标</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#1-4-业务目标"><span class="nav-text">1.4 业务目标</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-项目整体分析"><span class="nav-text">2. 项目整体分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-功能性需求拆解"><span class="nav-text">2.1 功能性需求拆解</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-测试覆盖范围（涉及针对哪些质量要求的测试方法）"><span class="nav-text">2.2 测试覆盖范围（涉及针对哪些质量要求的测试方法）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-测试对设计方案覆盖范围（根据开发设计文档罗列）"><span class="nav-text">2.3 测试对设计方案覆盖范围（根据开发设计文档罗列）</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-业务流程分析"><span class="nav-text">3. 业务流程分析</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-被测功能总体概述"><span class="nav-text">3.1 被测功能总体概述</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-整体业务流程"><span class="nav-text">3.2 整体业务流程</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-业务模型图"><span class="nav-text">3.3 业务模型图</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-风险分析"><span class="nav-text">3.4 风险分析</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-测试场景覆盖范围"><span class="nav-text">4. 测试场景覆盖范围</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#4-1-测试场景"><span class="nav-text">4.1 测试场景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-2-测试用例设计（完善测试用例，补充测试数据）"><span class="nav-text">4.2 测试用例设计（完善测试用例，补充测试数据）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-3-测试数据要求"><span class="nav-text">4.3 测试数据要求</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-4-其他测试补充"><span class="nav-text">4.4 其他测试补充</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-测试执行计划"><span class="nav-text">5. 测试执行计划</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#5-1-人员组织"><span class="nav-text">5.1 人员组织</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-2-测试实施计划"><span class="nav-text">5.2 测试实施计划</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-3-交付计划"><span class="nav-text">5.3 交付计划</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#主要是里程碑和大的时间点"><span class="nav-text">主要是里程碑和大的时间点</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#测试报告"><span class="nav-text">测试报告</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#测试报告-1"><span class="nav-text">测试报告</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaitza Young</span>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

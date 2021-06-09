@@ -1,0 +1,1259 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="F7u1qs7cxrGKFwGYVBckaESSUUKfgMVBnuZZUvdI5RA" />
+
+
+
+
+  <meta name="baidu-site-verification" content="3z8x68py8V" />
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+  <link rel="alternate" href="/true" title="Yaitza" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="说明：本文的代码以android-5.1.1_r8为蓝本，代码的在线网址是&lt;&#x2F;&gt; 1. 概要我们平常说的手机耗电量，一般涵盖两个方面：硬件层面的功耗和软件层面的电量。 本文介绍的电量统计的原理，并不涉及到硬件层面的功耗设计，仅从软件层面围绕以下几个问题进行分析：  Android如何启动电量统计服务？电量统计涉及到哪一些硬件模块？如何计算一个应用程序的耗电量？电量统计需要完成哪些具体工">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电量统计(1)-原理">
+<meta property="og:url" content="http://yaitza.cn/2017/04/19/2017-04-19-Performance-Battery1/index.html">
+<meta property="og:site_name" content="Yaitza">
+<meta property="og:description" content="说明：本文的代码以android-5.1.1_r8为蓝本，代码的在线网址是&lt;&#x2F;&gt; 1. 概要我们平常说的手机耗电量，一般涵盖两个方面：硬件层面的功耗和软件层面的电量。 本文介绍的电量统计的原理，并不涉及到硬件层面的功耗设计，仅从软件层面围绕以下几个问题进行分析：  Android如何启动电量统计服务？电量统计涉及到哪一些硬件模块？如何计算一个应用程序的耗电量？电量统计需要完成哪些具体工">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-19-Performance-Battery1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/3-2017-04-19-Performance-Battery1.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-18-Performance-dumpsys.png">
+<meta property="article:published_time" content="2017-04-18T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-09T00:57:57.161Z">
+<meta property="article:author" content="Yaitza Young">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-19-Performance-Battery1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yaitza.cn/2017/04/19/2017-04-19-Performance-Battery1/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> 电量统计(1)-原理 | Yaitza </title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97814311-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6df12946920b864a0ece38cbc1f9af63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279058270&web_id=1279058270" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yaitza</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yaitza.cn/2017/04/19/2017-04-19-Performance-Battery1/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yaitza Young">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yaitza">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yaitza" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                电量统计(1)-原理
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-04-19T00:00:00+08:00">
+                2017-04-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7/" itemprop="url" rel="index">
+                    <span itemprop="name">工具</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+		   
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  16
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>说明：本文的代码以<strong>android-5.1.1_r8</strong>为蓝本，代码的在线网址是&lt;/&gt;</p>
+<h1 id="1-概要"><a href="#1-概要" class="headerlink" title="1. 概要"></a>1. 概要</h1><p>我们平常说的手机耗电量，一般涵盖两个方面：硬件层面的功耗和软件层面的电量。</p>
+<p>本文介绍的电量统计的原理，并不涉及到硬件层面的功耗设计，仅从软件层面围绕以下几个问题进行分析：</p>
+<blockquote>
+<p>Android如何启动电量统计服务？<br/><br>电量统计涉及到哪一些硬件模块？<br/><br>如何计算一个应用程序的耗电量？<br/><br>电量统计需要完成哪些具体工作？</p>
+</blockquote>
+<p>手机有很多硬件模块：CPU，蓝牙，GPS，显示屏，Wifi，射频(Cellular Radio)等，在手机使用过程中，这些硬件模块可能处于不同的状态，譬如Wifi打开或关闭，屏幕是亮还是暗，CPU运行或休眠。<br>硬件模块在不同的状态下的耗电量是不同的。Android在进行电量统计时，并不是采用直接记录电流消耗量的方式，而是跟踪硬件模块在不同状态下的使用时间，收集一些可用信息，用来近似的计算出电池消耗量。</p>
+<p>从用户使用层面来看，Android需要统计出应用程序的耗电量。应用程序的耗电量由很多部分组成，可能使用了GPS，蓝牙等模块，可能应用程序要求长时间亮屏(譬如游戏、视频类应用)。<br>一个应用程序的电量统计，可以采用累计应用程序使用所有硬件模块时间这种方式近似计算出来。</p>
+<p>举一个例子，假定某个APK的使用了GPS，使用时间用 <em>t</em> 表示。GPS模块单位时间的耗电量用 <em>w</em> 表示，那么，这个APK使用GPS的耗电量就可以按照如下方式计算：</p>
+<pre><code>耗电量 = 单位时间耗电量(w) × 使用时间(t)</code></pre><p>Android框架层通过一个名为<code>batterystats</code>的系统服务，实现了电量统计的功能。<code>batterystats</code>获取电量的使用信息有两种方式：</p>
+<ul>
+<li><p><strong>被动(push)</strong>：有些硬件模块(wifi, 蓝牙)在发生状态改变时，通知<code>batterystats</code>记录状态变更的时间点</p>
+</li>
+<li><p><strong>主动(pull)</strong>：有些硬件模块(cpu)需要<code>batterystats</code>主动记录时间点，譬如记录Activity的启动和终止时间，就能计算出Activity使用CPU的时间</p>
+</li>
+</ul>
+<p>电量统计服务的代码逻辑涉及到以下android源码：</p>
+<ul>
+<li><a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/services/java/com/android/server/SystemServer.java#314">frameworks/base/services/java/com/android/server/SystemServer.java</a></li>
+<li><a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/services/core/java/com/android/server/am/ActivityManagerService.java#2162">frameworks/base/services/core/java/com/android/server/am/ActivityManagerService.java</a></li>
+<li><a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/services/core/java/com/android/server/am/BatteryStatsService.java">frameworks/base/services/core/java/com/android/server/am/BatteryStatsService.java</a></li>
+<li><a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/core/java/android/os/BatteryStats.java">frameworks/base/core/java/android/os/BatteryStats.java</a></li>
+<li><a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/core/java/com/android/internal/os/BatteryStatsImpl.java">frameworks/base/core/java/com/android/internal/os/BatteryStatsImpl.java</a></li>
+<li><a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/core/java/com/android/internal/os/BatteryStatsHelper.java">frameworks/base/core/java/com/android/internal/os/BatteryStatsHelper.java</a></li>
+<li><a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/core/res/res/xml/power_profile.xml">frameworks/base/core/res/res/xml/power_profile.xml</a></li>
+</ul>
+<p>为了描述的简便，后文仅以<strong>短类名.方法名()</strong>表示代码片段所在的位置。</p>
+<h1 id="2-电量统计服务的启动过程"><a href="#2-电量统计服务的启动过程" class="headerlink" title="2. 电量统计服务的启动过程"></a>2. 电量统计服务的启动过程</h1><p>电量统计服务是一个系统服务，名字为<code>batterystats</code>，在Android系统启动的时候，这个服务就会被启动，其启动时序如下图所示：</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-19-Performance-Battery1.png" alt="电量统计服务启动时序"></p>
+<p>电量统计服务是间接由ActivityManagerService(后文简称AMS)来启动，AMS是Android系统最为基础的服务，进入Android系统后，最优先启动的，就是这类服务。</p>
+<ul>
+<li><p>在<strong>SystemServer.startBootstrapServices()</strong>这个方法中，将ActivityManagerService.Lifecycle传入<strong>SystemServiceManager.startService()</strong>这个方法，就实现了AMS的初始化。</p>
+<p>注：Android提供了系统服务的基础类<strong>SystemService</strong>，子类通过实现系统回调函数，来完成具体系统服务的生命周期。ActivityManagerService.Lifecycle就是<strong>SystemService</strong>的子类。</p>
+</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">startBootstrapServices</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    mActivityManagerService = mSystemServiceManager.startService(</span><br><span class="line">            ActivityManagerService.Lifecycle<span class="class">.<span class="keyword">class</span>).<span class="title">getService</span>()</span>;</span><br><span class="line">    mActivityManagerService.setSystemServiceManager(mSystemServiceManager);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<strong>SystemServiceManager.startService()</strong>这个方法中，利用反射构造出一个新的实例，当ActivityManagerService.Lifecycle作为参数传入的时候，就完成了ActivityManagerService的初始化，注册和启动的工作。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> &lt;T extends SystemService&gt; <span class="function">T <span class="title">startService</span><span class="params">(Class&lt;T&gt; serviceClass)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    Constructor&lt;T&gt; constructor = serviceClass.getConstructor(Context<span class="class">.<span class="keyword">class</span>)</span>;</span><br><span class="line">    service = constructor.newInstance(mContext);</span><br><span class="line">    ...</span><br><span class="line">    mServices.add(service); <span class="comment">// 注册新的系统服务</span></span><br><span class="line">    ...</span><br><span class="line">    service.onStart();      <span class="comment">// 启动新的系统服务</span></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<strong>ActivityManagerService.start()</strong>方法中，伴随着ActivityManagerService启动的，BatteryStatService通过publish方法，将自己注册到系统服务中。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">start</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    mBatteryStatsService.publish(mContext);</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<strong>BatteryStatsService.publish()</strong>方法中，将<strong>BatteryStats.SERVICE_NAME</strong>这个名字注册到系统服务中，这个名字实际上就是<strong>batterystats</strong>，<br>后续使用电量统计服务时，只需要通过这个名字向系统获取对应的服务就可以了。  </li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">publish</span><span class="params">(Context context)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    ServiceManager.addService(BatteryStats.SERVICE_NAME, asBinder());</span><br><span class="line">    mStats.setNumSpeedSteps(<span class="keyword">new</span> PowerProfile(mContext).getNumSpeedSteps());</span><br><span class="line">    mStats.setRadioScanningTimeout(mContext.getResources().getInteger(</span><br><span class="line">            com.android.internal.R.integer.config_radioScanningTimeout)</span><br><span class="line">            * <span class="number">1000L</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p><strong>mStats</strong>是BatteryStatsImpl类的一个对象，从类名可以看出BatteryStatsImpl是BatteryStats的实现类，它描述了所有与电量消耗有关的信息，其实现逻辑，后文再作具体分析。</p>
+<p>这里新建了<strong>PowerProfile</strong>类，并调用了getNumSpeedSteps()方法， <em>NumSpeedSteps</em>描述的是CPU的运行频率，不同设备的CPU值可能不同。<br>除了CPU的运行频率，还有很多其他与耗电量相关参数，都是因设备而异的，<strong>PowerProfile</strong>类就是专门描述这些参数的，通过解析<a href="{{ site.android_source }}/platform/frameworks/base/+/android-5.1.1_r8/core/res/res/xml/power_profile.xml">frameworks/base/core/res/res/xml/power_profile.xml</a><br>这个XML文件完成初始化。厂商需要根据硬件设备的实际情况，设置不同的参数，以下是Nexus 5(hammerhead)耗电参数配置的代码片段：</p>
+</li>
+</ul>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">device</span> <span class="attr">name</span>=<span class="string">"Android"</span>&gt;</span></span><br><span class="line">    <span class="comment">&lt;!-- All values are in mAh except as noted --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"none"</span>&gt;</span>0<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"wifi.on"</span>&gt;</span>3.5<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"wifi.active"</span>&gt;</span>73.24<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"wifi.scan"</span>&gt;</span>75.48<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line">    <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"battery.capacity"</span>&gt;</span>2300<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">device</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>wifi.on, wifi.active, wifi.scan分别表示wifi模块在打开、工作和扫描时的单位时间的电流量，这个值的单位的mAh。其他一些参数可以参见：<a href="https://source.android.com/devices/tech/power/index.html#power-values" target="_blank" rel="noopener">https://source.android.com/devices/tech/power/index.html#power-values</a></p>
+<p>前面我们提到耗电量是通过计算：</p>
+<pre><code>耗电量 = 单位时间的耗电量(w) × 使用时间(t) = 电压(U) × 单位时间电流量(I) × 使用时间(t)</code></pre><p>在手机上电压一般是恒定的，所以，计算耗电量只需要知道单位时间电流量即可。有了power_profile.xml这个文件描述的单位时间电流量，再收集硬件模块在不同状态下的使用时间，就能够近似的计算出耗电量了。</p>
+<p><strong>至此，我们分析了以下两个问题：</strong></p>
+<ul>
+<li><p><strong>Android如何启动电量统计服务？</strong> Android系统启动 -&gt; AMS启动和注册 -&gt; batterystats启动和注册</p>
+</li>
+<li><p><strong>Android如何计算耗电量？</strong> 并不是直接跟踪电流消耗量，而是采用“单位时间电流量(I)×使用时间(t)”来做近似计算。不同硬件模块的单位时间电流量是需要厂商给定的。</p>
+</li>
+</ul>
+<h1 id="3-电量统计服务的工作过程"><a href="#3-电量统计服务的工作过程" class="headerlink" title="3. 电量统计服务的工作过程"></a>3. 电量统计服务的工作过程</h1><p>电量统计包含几个重要的功能：信息收集、信息存储和电量计算。</p>
+<ul>
+<li>信息收集是指在什么时间点采用什么方式收集电量使用数据</li>
+<li>信息存储按照什么格式存放，存放在什么位置</li>
+<li>电量计算是指根据已经收集的信息，如何计算出不同应用、服务、进程等的电量使用情况</li>
+</ul>
+<p>在具体介绍电量统计服务的工作过程之前，先上工作原理图一张：</p>
+<div align="center"><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/3-2017-04-19-Performance-Battery1.png" alt="电量统计服的工作过程"/></div>
+
+<h2 id="3-1-电量信息收集"><a href="#3-1-电量信息收集" class="headerlink" title="3.1 电量信息收集"></a>3.1 电量信息收集</h2><p><code>batterystats</code>有主动和被动收集电量使用信息的方式，收集的信息基本都包含硬件模块的状态和被使用的时间两个维度。为什么仅仅是收集不同硬件模块的使用时间呢？<br>前面我们说过，手机电压通常是恒定的，耗电量是通过 “单位时间电流量(I) × 使用时间(t)” 来计算，而单位时间电流量是由厂商给定的，定义在power_profile.xml中，<br>所以，只需要收集不同硬件模块的使用时间，就可以近似的计算出耗电量了</p>
+<p>收集信息被组织起来，在内存中的数据结构是由<a href="/platform/frameworks/base/+/android-5.1.1_r8/core/java/android/os/BatteryStats.java"><strong>BatteryStats</strong></a>类描述的。<br>为了能够从不同维度统计耗电量，这个数据结构设计得比较复杂，我们不在这里展开讨论，仅通过一个收集应用程序前台运行时间的例子，来说明信息收集过程。</p>
+<p>记录应用程序中所有Activity从显示状态(Resumed)到消失状态(Paused)的时间，就能够统计应用程序的前台运行时间。Activity状态的切换是由AMS掌控的，因此AMS需要将Activity的状态信息通知给<code>batterystats</code>服务。</p>
+<ul>
+<li>当Activity要切换到显示状态(Resumed)时，会调用<strong>ActivityStackSupervisor.resumeTopActivitiesLocked()</strong>方法，<br>接下来会调用<strong>ActivityStack.resumeTopActivityInnerLocked()</strong>方法来完成Activity的状态切换，在完成状态切换后，<br>会调用<strong>ActivityStackSupervisor.reportResumedActivityLocked()</strong>方法，从这里开始，就开始通报了：“本Activity已经进入了显示状态”。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">boolean</span> <span class="title">reportResumedActivityLocked</span><span class="params">(ActivityRecord r)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">final</span> ActivityStack stack = r.task.stack;</span><br><span class="line">    <span class="keyword">if</span> (isFrontStack(stack)) &#123;</span><br><span class="line">        mService.updateUsageStats(r, <span class="keyword">true</span>);</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<strong>ActivityManagerService.updateUsageStats()</strong>方法中，首先会获取一个统计信息的实例<strong>BatteryStatsImpl</strong>，它是<strong>BatteryStats</strong>的子类，描述了所有的统计信息；<br>然后，根据是否处于resumed的状态，作出Resumed或Paused的通知。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updateUsageStats</span><span class="params">(ActivityRecord component, <span class="keyword">boolean</span> resumed)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    <span class="keyword">final</span> BatteryStatsImpl stats = mBatteryStatsService.getActiveStatistics();</span><br><span class="line">    <span class="keyword">if</span> (resumed) &#123;</span><br><span class="line">        ...</span><br><span class="line">        stats.noteActivityResumedLocked(component.app.uid);</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        ....</span><br><span class="line">        stats.noteActivityPausedLocked(component.app.uid);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<strong>BatteryStatsImpl.noteActivityResumedLocked()</strong>方法中，会启动一个计时器(StopwatchTimer)，记录下了启动时间(uptime)</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">noteActivityResumedLocked</span><span class="params">(<span class="keyword">long</span> elapsedRealtimeMs)</span> </span>&#123;</span><br><span class="line">    createForegroundActivityTimerLocked().startRunningLocked(elapsedRealtimeMs);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>在<strong>BatteryStatsImpl.noteActivityPausedLocked()</strong>方法中，会停止之前启动的计时器(StopwatchTimer)，并计算出使用时间。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">noteActivityPausedLocked</span><span class="params">(<span class="keyword">long</span> elapsedRealtimeMs)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (mForegroundActivityTimer != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mForegroundActivityTimer.stopRunningLocked(elapsedRealtimeMs);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>除了应用程序前台运行时间，还有很多信息是<code>batterystats</code>服务关注的，包括WakeLock、Sendor、Wifi、Audio、Video等，这些信息的采集方式与上述过程雷同，都会经过以下步骤：</p>
+<ul>
+<li>由相应的模块发起状态变更的通知</li>
+<li>BatteryStats使用定时器记录起止时间</li>
+</ul>
+<p>应用程序可能会使用多个硬件模块，所以，耗电信息收集的策略也被设计得比较复杂，譬如，要使用到很多计时器，就设计出了“计时器池”来提高资源利用率。</p>
+<h2 id="3-2-电量信息存储"><a href="#3-2-电量信息存储" class="headerlink" title="3.2 电量信息存储"></a>3.2 电量信息存储</h2><p>收集到的电量信息，在内存中是由<strong>BatteryStats</strong>这个类来描述的，Android支持历史电量信息的显示的，如果重新启动Android，那内存中的数据就丢失了，<br>所以需要把这些信息存储到磁盘上，磁盘上的 <em>/data/system/batterystats.bin</em> 文件中就是电量信息的序列化数据。</p>
+<p><code>batterystats</code>服务启动时，会从 <em>batterystats.bin</em> 这个文件中读取数据，来初始化<strong>BatteryStats</strong>这个数据结构。</p>
+<ul>
+<li><strong>BatteryStatsService()</strong>构造函数中，初始化了<strong>BatteryStats</strong>的子类<strong>BatteryStatsImpl</strong></li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">BatteryStatsService(File systemDir, Handler handler) &#123;</span><br><span class="line">    mStats = <span class="keyword">new</span> BatteryStatsImpl(systemDir, handler);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>BatteryStatsImpl()</strong>构造函数中，一开始就会新建一个文件batterystats.bin，传入参数systemDir,就是“/data/system”。<br>这个时候，还并没有从文件中读取数据来填充内存。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">BatteryStatsImpl</span><span class="params">(File systemDir, Handler handler)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (systemDir != <span class="keyword">null</span>) &#123;</span><br><span class="line">        mFile = <span class="keyword">new</span> JournaledFile(<span class="keyword">new</span> File(systemDir, <span class="string">"batterystats.bin"</span>),</span><br><span class="line">                <span class="keyword">new</span> File(systemDir, <span class="string">"batterystats.bin.tmp"</span>));</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        mFile = <span class="keyword">null</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>ActivityManagerService()</strong>构造函数中,有初始化电量统计服务的逻辑，会调用到<strong>BatteryStatsImpl.readLocked()</strong>方法，<br> 这个方法里面完成了将磁盘数据反序列化到内存。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ActivityManagerService</span><span class="params">(Context systemContext)</span> </span>&#123;</span><br><span class="line">    ...</span><br><span class="line">    File systemDir = <span class="keyword">new</span> File(dataDir, <span class="string">"system"</span>);</span><br><span class="line">    systemDir.mkdirs();</span><br><span class="line">    mBatteryStatsService = <span class="keyword">new</span> BatteryStatsService(systemDir, mHandler);</span><br><span class="line">    mBatteryStatsService.getActiveStatistics().readLocked();</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>有数据的读取，就有数据的写入，通过调用<strong>BatteryStatsImpl.writeLocked()</strong>方法，就将数据写回到了 <em>batterystats.bin</em> 这个文件。<br><strong>ActivityManagerService.updateCpuStatsNow()</strong>方法会触发写 <em>batterystats.bin</em> 的操作，而这个方法，在更新电量使用信息的时候就会被调用到。<br>所以，在手机使用的过程中，收集到的电量信息，就会被当作历史信息，不定时的写入到磁盘保存下来，下次<code>batterystats</code>启动时，又会被用到。</p>
+<h2 id="3-3-电量计算"><a href="#3-3-电量计算" class="headerlink" title="3.3 电量计算"></a>3.3 电量计算</h2><p><strong>BatteryStatsHelper.refreshStats()</strong>承载了电量计算的全部过程，在需要显示电量统计信息的地方，就可以通过<strong>BatteryStatsHelper</strong>这个类，来获取统计完成的电量信息。<br>Setting.apk就引用了这个类。电量计算大体可以分为两块：</p>
+<ul>
+<li><p><strong>AppUsage</strong>：应用程序耗电量计算，是指每一个应用程序使用硬件模块所产生的耗电量</p>
+</li>
+<li><p><strong>MiscUsage</strong>：其他杂项耗电量计算，所谓杂项，其实就是用户比较关心的一大类，包括：待机的耗电量、亮屏的耗电量、通话的耗电量、Wifi的耗电量等</p>
+</li>
+</ul>
+<h3 id="3-3-1-AppUsage"><a href="#3-3-1-AppUsage" class="headerlink" title="3.3.1 AppUsage"></a>3.3.1 AppUsage</h3><p>在<strong>BatteryStatsHelper.processAppUsage()</strong>这个方法中，实现了应用程序的电量计算(实际上统计的粒度是uid，不同的apk可以运行在同一个uid)。</p>
+<ul>
+<li>首先，有一个统计时间段的概念，是通过统计类型<strong>mStatsType</strong>这个变量来表示的，有以下可选值：</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 统计从上一次充电以来至现在的耗电量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STATS_SINCE_CHARGED = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 统计系统启动以来到现在的耗电量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STATS_CURRENT = <span class="number">1</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 统计从上一次拔掉USB线以来到现在的耗电量</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> STATS_SINCE_UNPLUGGED = <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+
+
+<ul>
+<li>然后，我们来看一下这个函数体，它实现的是与APP耗电量计算的逻辑。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processAppUsage</span><span class="params">(SparseArray&lt;UserHandle&gt; asUsers)</span> </span>&#123;</span><br><span class="line">    <span class="comment">// 根据power_profile.xml文件中的单位时间电流量定义，初始化一些计算参数</span></span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> which = mStatsType;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> speedSteps = mPowerProfile.getNumSpeedSteps();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">double</span>[] powerCpuNormal = <span class="keyword">new</span> <span class="keyword">double</span>[speedSteps];</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">long</span>[] cpuSpeedStepTimes = <span class="keyword">new</span> <span class="keyword">long</span>[speedSteps];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> p = <span class="number">0</span>; p &lt; speedSteps; p++) &#123;</span><br><span class="line">        powerCpuNormal[p] = mPowerProfile.getAveragePower(PowerProfile.POWER_CPU_ACTIVE, p);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">double</span> mobilePowerPerPacket = getMobilePowerPerPacket();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">double</span> mobilePowerPerMs = getMobilePowerPerMs();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">double</span> wifiPowerPerPacket = getWifiPowerPerPacket();</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 对一个UID进行电量统计， UID几乎可以等同于一个应用程序</span></span><br><span class="line">    SparseArray&lt;? extends Uid&gt; uidStats = mStats.getUidStats();</span><br><span class="line">    <span class="keyword">final</span> <span class="keyword">int</span> NU = uidStats.size();</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> iu = <span class="number">0</span>; iu &lt; NU; iu++) &#123;</span><br><span class="line">        <span class="comment">// 1. 计算每一个UID中所有进程在CPU运算时的耗电量，比如应用程序在前台显示，或者后台有服务在占用CPU</span></span><br><span class="line">        <span class="comment">//    CPU有不同的运行频率，每一个频率和该频率下的单位时间电流都在power_profile.xml中有定义  </span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 2. 计算Wakelock占用的耗电量，Wakelock被占用，意味着CPU处于唤醒状态</span></span><br><span class="line">        <span class="comment">//    在有些时候，并不需要进行CPU运算，但CPU仍处于唤醒状态</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 3. 计算使用数据网络的耗电量</span></span><br><span class="line">        <span class="comment">//    应用程序使用数据网络上网时的耗电量，完成这部分通信的射频模块(radio)</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 4. 计算使用wifi的耗电量</span></span><br><span class="line">        <span class="comment">//    wifi的使用又可以分为两个情况：扫描可用wifi(SCAN)和进行数据传输(RUNNING)，</span></span><br><span class="line">        <span class="comment">//    这两种情况下的单位时间电流量是不同的</span></span><br><span class="line"></span><br><span class="line">        <span class="comment">// 5. 计算使用传感器的耗电量</span></span><br><span class="line">        <span class="comment">//    GPS使用的耗电量计算也被包含在这里</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><p>最后，我们来总结一下应用程序的电量计算过程。Android通过一个名为<strong>BatteryStats.Uid</strong>的数据结构来维护一个应用程序的电量统计信息。<br>这个数据结构中，又包含很多子结构：</p>
+<ul>
+<li>Proc：表示属于Uid的进程，一个Uid中可能会有多个进程，每个进程都有CPU占用时间</li>
+<li>WakeLock：表示Uid持有的WakeLock锁的电量统计，一个Uid也可能会持有多个锁</li>
+<li>Mobile Raido：表示Uid使用数据流量的电量统计，譬如3G流量、4G流量</li>
+<li>Wifi：表示Uid使用wifi的电量统计</li>
+<li>Sendor：表示Uid使用传感器的电量统计  </li>
+</ul>
+</li>
+</ul>
+<div align="center"><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/1-2017-04-18-Performance-dumpsys.png" alt="应用程序电量计算过程"/></div>
+
+<p>  Android会对每一个Uid进行电量计算，每次计算都会涉及到以上五个维度，每一个维度的计算<strong>几乎</strong>都要用到硬件模块在不同状态下单位时间的电流量，以及硬件模块在当前Uid下的使用时间。</p>
+<p>  注：这里说的<strong>几乎</strong>，是指还有一些例外情况，在计算使用数据网络的耗电量时，也可能会通过传输的数据包来计算耗电量。从这里，我们也可以看到电量计算是由一套复杂的策略决定的。</p>
+<h3 id="3-3-1-MiscUsage"><a href="#3-3-1-MiscUsage" class="headerlink" title="3.3.1 MiscUsage"></a>3.3.1 MiscUsage</h3><p>在<strong>BatteryStatsHelper.processMiscUsage()</strong>这个方法中，实现了其他一些杂项的电量计算，函数的实现清晰了表明了意图。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title">processMiscUsage</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    addUserUsage();</span><br><span class="line">    addPhoneUsage();</span><br><span class="line">    addScreenUsage();</span><br><span class="line">    addFlashlightUsage();</span><br><span class="line">    addWiFiUsage();</span><br><span class="line">    addBluetoothUsage();</span><br><span class="line">    addIdleUsage(); <span class="comment">// Not including cellular idle power</span></span><br><span class="line">    <span class="comment">// Don't compute radio usage if it's a wifi-only device</span></span><br><span class="line">    <span class="keyword">if</span> (!mWifiOnly) &#123;</span><br><span class="line">        addRadioUsage();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>至此，我们进一步分析以下两个问题:</strong></p>
+<ul>
+<li><p><strong>如何计算一个应用程序的耗电量？</strong> 收集硬件模块使用时间 -&gt; 对每个应用程序进行归类计算</p>
+</li>
+<li><p><strong>电量统计需要完成哪些具体工作？</strong> 电量使用信息收集，存储和计算</p>
+</li>
+</ul>
+<p>本文分析了软件层面的电量统计原理，电量统计的结果，一般可以在“设置”这个程序的电池信息中可以看到。另一方面，Android提供的<code>dumpsys batterystats</code>功能，也能输出所有的电量统计信息，<br>在<a href="/2017-04-19-Performance-Battery2">电量统计(2)-日志</a>一文中，我们对Android的Log进行了详细的分析。</p>
+<p>本文引用至 <a href="http://duanqz.github.io/2015-07-21-batterystats-part1" target="_blank" rel="noopener">http://duanqz.github.io/2015-07-21-batterystats-part1</a>.</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>🐶 您的支持将鼓励我继续创作 🐶</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.jpg" alt="Yaitza Young WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.jpg" alt="Yaitza Young Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+        
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Yaitza Young 的个人博客">Yaitza Young</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://yaitza.cn/2017/04/19/2017-04-19-Performance-Battery1/" title="电量统计(1)-原理">电量统计(1)-原理</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://yaitza.cn/2017/04/19/2017-04-19-Performance-Battery1/" title="电量统计(1)-原理">http://yaitza.cn/2017/04/19/2017-04-19-Performance-Battery1/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2017年4月19日 - 00时04分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Yaitza Young 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/04/18/2017-04-18-Performance-dumpsys/" rel="next" title="dumpsys介绍">
+                <i class="fa fa-chevron-left"></i> dumpsys介绍
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2017/04/19/2017-04-19-Performance-Battery2/" rel="prev" title="电量统计(2)-日志">
+                电量统计(2)-日志 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODM2NS80OTM3"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yaitza Young" />
+          <p class="site-author-name" itemprop="name">Yaitza Young</p>
+          <p class="site-description motion-element" itemprop="description">yaitza's steps</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/true" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yaitza" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/jay-Come-on/" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  cnblogs
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.woaitqs.cc/" title="Qisen Tang" target="_blank">Qisen Tang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://szhshp.org" title="szhshp的博客" target="_blank">szhshp的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.zhangwei.website" title="JuniorCoder" target="_blank">JuniorCoder</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-概要"><span class="nav-text">1. 概要</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-电量统计服务的启动过程"><span class="nav-text">2. 电量统计服务的启动过程</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3-电量统计服务的工作过程"><span class="nav-text">3. 电量统计服务的工作过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-电量信息收集"><span class="nav-text">3.1 电量信息收集</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-电量信息存储"><span class="nav-text">3.2 电量信息存储</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3-电量计算"><span class="nav-text">3.3 电量计算</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-AppUsage"><span class="nav-text">3.3.1 AppUsage</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-3-1-MiscUsage"><span class="nav-text">3.3.1 MiscUsage</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaitza Young</span>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

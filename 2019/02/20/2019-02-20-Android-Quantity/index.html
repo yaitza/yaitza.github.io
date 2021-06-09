@@ -1,0 +1,1286 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="F7u1qs7cxrGKFwGYVBckaESSUUKfgMVBnuZZUvdI5RA" />
+
+
+
+
+  <meta name="baidu-site-verification" content="3z8x68py8V" />
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="Android," />
+
+
+
+
+
+  <link rel="alternate" href="/true" title="Yaitza" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1. 研究背景在2017年Google I&#x2F;O大会上，Google发布了Google Play管理中心的新功能：Android vitals。当app在大量设备上运行时，Android vitals会收集与应用性能相关的各种匿名数据，比如：与app稳定性相关的数据、app启动时间、电量使用情况、渲染时间以及权限遭拒等等，这些数据会被分析整理后展示在Google Play管理中心的Android v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Android电量测试方法研究与总结">
+<meta property="og:url" content="http://yaitza.cn/2019/02/20/2019-02-20-Android-Quantity/index.html">
+<meta property="og:site_name" content="Yaitza">
+<meta property="og:description" content="1. 研究背景在2017年Google I&#x2F;O大会上，Google发布了Google Play管理中心的新功能：Android vitals。当app在大量设备上运行时，Android vitals会收集与应用性能相关的各种匿名数据，比如：与app稳定性相关的数据、app启动时间、电量使用情况、渲染时间以及权限遭拒等等，这些数据会被分析整理后展示在Google Play管理中心的Android v">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-1.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-2.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-3.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-4.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-5.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-6.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-7.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-8.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-9.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-10.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-11.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-12.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-13.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-14.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-15.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-16.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-17.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-18.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-19.jpg">
+<meta property="og:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-19.jpg">
+<meta property="article:published_time" content="2019-02-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-09T00:57:57.166Z">
+<meta property="article:author" content="Yaitza Young">
+<meta property="article:tag" content="Android">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-1.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yaitza.cn/2019/02/20/2019-02-20-Android-Quantity/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> Android电量测试方法研究与总结 | Yaitza </title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97814311-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6df12946920b864a0ece38cbc1f9af63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279058270&web_id=1279058270" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yaitza</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yaitza.cn/2019/02/20/2019-02-20-Android-Quantity/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yaitza Young">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yaitza">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yaitza" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Android电量测试方法研究与总结
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-20T00:00:00+08:00">
+                2019-02-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+		   
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  4.3k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  15
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="1-研究背景"><a href="#1-研究背景" class="headerlink" title="1. 研究背景"></a>1. 研究背景</h1><p>在2017年Google I/O大会上，Google发布了Google Play管理中心的新功能：Android vitals。当app在大量设备上运行时，Android vitals会收集与应用性能相关的各种匿名数据，比如：与app稳定性相关的数据、app启动时间、电量使用情况、渲染时间以及权限遭拒等等，这些数据会被分析整理后展示在Google Play管理中心的Android vitals dashboard中。Android vitals 中需要开发者重点关注的核心指标有：crash率、ANR率、excessive wakeups（过渡唤醒）、stuck wake locks（唤醒锁定卡住）。其他指标，需根据应用类型选择性关注（Android vitals中的指标总览见图1-1）。若app某些指标表现很差，会影响用户体验，并且会导致应用在Google Play商店中的等级很低、排名靠后（APP指标异常示例图见图1-2）。开发者可以通过分析Android vitals中提供的一些参照指标，采取相应的措施来优化app。<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-1.jpg" alt="Android vitals平台检测指标总览">   </p>
+<p>  图1-1 Android vitals平台检测指标总览</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-2.jpg" alt="某APP指标异常示例图">   </p>
+<p>  图1-2 某APP指标异常示例图</p>
+<h1 id="2-核心指标详细信息"><a href="#2-核心指标详细信息" class="headerlink" title="2. 核心指标详细信息"></a>2. 核心指标详细信息</h1><p>要对APP的指标进行监控，首先要明确该指标在Android vitals中是如何进行统计的，这一节主要介绍电量相关核心指标的基本概念和计算方式。</p>
+<h2 id="2-1-Stuck-partial-wake-locks（部分唤醒锁定卡住）"><a href="#2-1-Stuck-partial-wake-locks（部分唤醒锁定卡住）" class="headerlink" title="2.1 Stuck partial wake locks（部分唤醒锁定卡住）"></a>2.1 Stuck partial wake locks（部分唤醒锁定卡住）</h2><h3 id="A-WakeLock（唤醒锁）基本概念："><a href="#A-WakeLock（唤醒锁）基本概念：" class="headerlink" title="A.WakeLock（唤醒锁）基本概念："></a>A.WakeLock（唤醒锁）基本概念：</h3><p>Android系统本身为了优化电量的使用，会在没有操作时进入休眠状态, 来节省电量。为了便于开发(很多应用不可避免的希望在灭屏后还能运行一些事儿，或是要保持屏幕一直亮着–比如播放视频)，Android提供了一个PowerManager.WakeLock的东西。我们可以用WakeLock来保持CPU运行，或是防止屏幕变暗/关闭，让手机可以在用户不操作时依然可以做一些事儿。然而，获取WakeLock很容易，释放不好就会成为难题，消耗电量。  </p>
+<p>例如我们获取了一个WakeLock来保持CPU运转，做一个复杂运算并将数据上传到后台服务器, 然后释放该WakeLock。然而这个过程可能并不像我们想象的那么快，可能因为比如服务器挂掉，计算出了异常等等WakeLock没有释放。问题就来了，CPU会一直得不到休眠，而大大增加耗电。</p>
+<p>唤醒锁可划分为并识别四种用户唤醒锁：</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-3.jpg" alt="四种用户唤醒锁"> </p>
+<p>自 API 等级 17 开始，FULL_WAKE_LOCK 将被弃用。应用应使用FLAG_KEEP_SCREEN_ON。</p>
+<p>相关链接： <a href="https://developer.android.com/reference/android/os/PowerManager" target="_blank" rel="noopener">https://developer.android.com/reference/android/os/PowerManager</a></p>
+<h3 id="B-Partial-wake-locks（部分唤醒锁）："><a href="#B-Partial-wake-locks（部分唤醒锁）：" class="headerlink" title="B.Partial wake locks（部分唤醒锁）："></a>B.Partial wake locks（部分唤醒锁）：</h3><p>部分唤醒锁可确保CPU正常运行，但屏幕和键盘背光可以关闭。如果运行在后台的APP长时间持有某个部分唤醒锁，就导致部分唤醒锁卡住。这种情况十分消耗设备电量，因为它会阻止设备进入低电量状态。Android vitals重点关注了stuck partial wake locks这项指标，当你的APP存在唤醒锁定卡住的现象时，它会通过Play管理中心给出告警（APP出现部分唤醒锁定卡住示例图见图2-1），并从各个维度给出相关的详细统计图（如图2-2中给出每个工作时段后台wake lock最长持续时间分布图）。当出现以下情况时，Android vitals会报告唤醒锁定卡住：</p>
+<p>至少70%以上的battery sessions发生过至少一次、长达一小时以上的部分唤醒锁定。<br>当只在后台运行时，至少10%以上的battery sessions发生过至少一次、长达一小时以上的部分唤醒锁定。</p>
+<p>（ps：battery session指两次电池充满电之间的时间间隔，Android vitals展示的battery sessions是所有app测试用户的battery session合计。）</p>
+<p>相关链接： <a href="https://developer.android.google.cn/topic/performance/vitals/wakelock" target="_blank" rel="noopener">https://developer.android.google.cn/topic/performance/vitals/wakelock</a> </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-4.jpg" alt="某APP出现部分唤醒锁定卡住"> </p>
+<p>图2-1 某APP出现部分唤醒锁定卡住（后台）示例图  </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-5.jpg" alt="每个工作时段后台wake lock最长持续时间的分布图"> </p>
+<p>图2-2 每个工作时段后台wake lock最长持续时间的分布图</p>
+<h2 id="2-2-Excessive-wakeups（过渡唤醒）"><a href="#2-2-Excessive-wakeups（过渡唤醒）" class="headerlink" title="2.2 Excessive wakeups（过渡唤醒）"></a>2.2 Excessive wakeups（过渡唤醒）</h2><h3 id="A-Wakeups-基本概念"><a href="#A-Wakeups-基本概念" class="headerlink" title="A.Wakeups 基本概念"></a>A.Wakeups 基本概念</h3><p>Wakeups 是AlarmManager API中的一种机制，开发者可以设置一个alarm在特定的时间来唤醒设备。当某个唤醒alarm触发，设备会走出低电量模式，在执行alarm的onRecieve（）或onAlarm（）方法的时候，Alarm Manager会持有一个部分唤醒锁。如果wake alarms频繁触发，会耗尽设备电量。Android vitals中展示了app的过渡唤醒次数。</p>
+<p>Alarm有以下四种类型：</p>
+<h4 id="1-RTC-WAKEUP"><a href="#1-RTC-WAKEUP" class="headerlink" title="1. RTC_WAKEUP"></a>1. RTC_WAKEUP</h4><p>在指定的时刻（设置Alarm的时候），唤醒设备来触发Intent。</p>
+<h4 id="2-RTC"><a href="#2-RTC" class="headerlink" title="2. RTC"></a>2. RTC</h4><p>在一个显式的时间触发Intent，但不唤醒设备。</p>
+<h4 id="3-ELAPSED-REALTIME"><a href="#3-ELAPSED-REALTIME" class="headerlink" title="3. ELAPSED_REALTIME"></a>3. ELAPSED_REALTIME</h4><p>从设备启动后，如果流逝的时间达到总时间，那么触发Intent，但不唤醒设备。流逝的时间包括设备睡眠的任何时间。注意一点的是，时间流逝的计算点是自从它最后一次启动算起。</p>
+<h4 id="4-ELAPSED-REALTIME-WAKEUP"><a href="#4-ELAPSED-REALTIME-WAKEUP" class="headerlink" title="4. ELAPSED_REALTIME_WAKEUP"></a>4. ELAPSED_REALTIME_WAKEUP</h4><p>从设备启动后，达到流逝的总时间后，如果需要将唤醒设备并触发Intent。</p>
+<p>在Android vitals中只列出了RTC_WAKEUP和ELAPSED_REALTIME_WAKEUP两种类型的唤醒数据，Google会统计每小时发生10次以上wakeup的电池工作时段百分比（APP发生过渡唤醒示例见图2-3）。分别从应用版本、wakeup标记、设备、Android版本等几个维度统计每小时的Alarm Manager wakeup次数（每个工作时段中每小时的wackup分布图见图2-4）</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-6.jpg" alt="某APP发生过渡唤醒示例图"> </p>
+<p>图2-3 某APP发生过渡唤醒示例图</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-7.jpg" alt="每个工作时段每小时wakeup次数分布图"> </p>
+<p>图2-4 每个工作时段每小时wakeup次数分布图</p>
+<h1 id="3、测试方法研究"><a href="#3、测试方法研究" class="headerlink" title="3、测试方法研究"></a>3、测试方法研究</h1><h2 id="3-1-传统电量测试方法回顾"><a href="#3-1-传统电量测试方法回顾" class="headerlink" title="3.1 传统电量测试方法回顾"></a>3.1 传统电量测试方法回顾</h2><p>我们之前也对腾讯视频主线版本进行过电量测试，之前关注的重点在于APP在各场景中耗电量是否正常，是从比较宏观的角度去进行测试的，采取的测试方法主要是物理仪器测试法和GT测试法。</p>
+<h3 id="A-物理仪器测试法（电流表等）"><a href="#A-物理仪器测试法（电流表等）" class="headerlink" title="A.物理仪器测试法（电流表等）"></a>A.物理仪器测试法（电流表等）</h3><p>在保持电压恒定的情况下，获取各场景平均电流值来统计系统耗电情况，通过此方法可以从大体上看出APP电量消耗是否正常，若仪器精度大，此方法测出的电量值是最准确的。<br>缺陷：此方法只能测试整个手机的电流，不能区分APP，受影响的因素多，如屏幕亮度大小、音量大小等等，要保证每次测试的环境完全一致是不可能的。  </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-8.jpg" alt="物理仪器测电量"> </p>
+<p>图3-1 物理仪器测电量</p>
+<h3 id="B-GT测试法"><a href="#B-GT测试法" class="headerlink" title="B.GT测试法"></a>B.GT测试法</h3><p>GT（随身调）是由MIG专项测试组自主研发的APP随身调测平台，它是直接运行在手机上的“集成调测环境”(IDTE, Integrated Debug Environment)。利用GT，仅凭一部手机，无需连接电脑，您即可对APP进行快速的性能测试(CPU、内存、流量、电量、帧率/流畅度等等)、开发日志的查看、Crash日志查看、网络数据包的抓取、APP内部参数的调试、真机代码耗时统计等。<br>通过GT，可以采集手机耗电量相关数据：电流、电压、电量、温度等，通过分析这些数据，可以对整个手机的电量使用情况进行分析。</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-9.jpg" alt="物理仪器测电量">  </p>
+<p>缺点：和物理仪器测试方法一样，采用GT测试也只能获取到整个手机的电量数据，无法只关注单独APP，且受各种因素影响较大。</p>
+<h2 id="3-2-国际版电量测试方法预研"><a href="#3-2-国际版电量测试方法预研" class="headerlink" title="3.2 国际版电量测试方法预研"></a>3.2 国际版电量测试方法预研</h2><p>由于国际版APP在Google Play上发布，我们做电量测试不仅仅需要关注整个APP的电量使用情况是否正常，还需要关注APP持有 wack lock和使用alarm的情况。因此，传统的电量测试方法已经无法满足我们的需求，我们需要在此基础上增加额外的测试方法。</p>
+<h3 id="A-Batterystats-bugreport"><a href="#A-Batterystats-bugreport" class="headerlink" title="A. Batterystats/ bugreport"></a>A. <strong>Batterystats/ bugreport</strong></h3><p>Android5.0后，电量数据可通过dumpsys batterystats获取。Android系统统计耗电量的基本公式是W=U<em>I</em>t。在手机中，U一般恒定不变，因此可以单独通过Q（电容量）=I*t来表示电量。核心类BatterStatsImpl提供App各部件运行时间、PowerProfile提供部件电流数值。Android部件电流信息存于：power_profile.xml文件中，每个OEM厂商都有私有的power_profile.xml文件，PowerProfile通过读取该文件获取访问部件电流数值（图3-3是samsung某型号的power_profile.xml）。Android系统以uid为单位，依次统计每个apk的使用cpu使用耗电量、wake lock耗电量、移动数据耗电量、wifi数据耗电量、wifi维持耗电量、wifi扫描耗电量、各传感器耗电量。其中wake lock消耗的电量只统计了持有Partial wake lock的耗电量，正好是我们需要关注的唤醒类型，因此我们可以通过分析batterystats获得的电量数据来测试app持有Partial wake lock情况。<br>Android为了方便开发人员分析整个系统平台和某个app在运行一段时间之内的所有信息，专门开发了bugreport工具。bugreport文件中记录了系统允许过程中的各种log信息，其中也包括了耗电量信息。通过分析bugreport中的电量相关数据也能获取APP持有Partial wake lock的信息。<br>ps：Uid与App关系：2个App签名和sharedUserId相同，则在运行时，他们拥有相同Uid。就是说processAppUsage统计的可能是多个App的耗电量数据，对于普通App，出现这种情况的几率较少，而对于Android系统应用则较为常见。<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-10.jpg" alt="wack lock耗电量计算源代码"><br>图3-2 wack lock耗电量计算源代码<br><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-11.jpg" alt="sumsung某型号power_profile.xml"><br>图3-3 sumsung某型号power_profile.xml<br>数据准备：<br>先断开adb服务，然后开启adb服务。</p>
+<p><strong>(1)adb kill-server</strong><br><strong>(2)adb start-server</strong><br>由于开发时做电量记录时会打开很多可能造成冲突的东西，为了保险起见，重启adb命令。<br>重置电池数据、收集数据<br><strong>(3) adb shell dumpsys batterystats  –enable full-wake-history</strong><br><strong>(4) adb shell dumpsys batterystats –reset</strong><br><strong>(5) adb shell logcat -c</strong><br>通过以上命令来打开电池数据的获取以及重置，清除干扰的数据，清除历史日志。<br>获取电量报告<br>把数据线拔掉，防止数据线造成充放电数据干扰。然后做一些测试的case，经过一段时间后，重新连接手机确认adb连上了，运行以下命令来将bugreport的信息保存到txt文件中。<br><strong>(6) adb bugreport &gt;D:/bugreport.txt</strong><br>或者用下面的命令也可以，官网上记述的内容，经实践，无法被读取…<br><strong>(7) adb shell dumpsys batterystats &gt; batterystats.txt</strong><br><strong>(8) adb shell dumpsys batterystats &gt; com.example.app(包名) &gt;batterystats.txt</strong><br>ps：在此注意一定要等到该条命令执行完(稍微会有些慢)后，再打开bugreport.txt文件，之前遇到过没有导出完，就点开，信息缺失的情况，导致无法成功生成图表。  </p>
+<h3 id="B-battery-historian"><a href="#B-battery-historian" class="headerlink" title="B. battery historian"></a>B. <strong>battery historian</strong></h3><p>生成的bugreport文件有的时候异常庞大，能够达到15M+，想一想对于一个txt文本格式的文件内容长度达到了15M+是一个什么概念，如果使用文本工具打开查看将是一个噩梦。因此google针对android 5.0（api 21）以上的系统开发了一个叫做battery historian的分析工具，这个工具就是用来解析这个txt文本文件，然后使用web图形的形式展现出来，这样出来的效果更加人性化，更加可读。我们可以使用该工具对bugreport文件进行解析，更轻松的获取电量相关数据。<br>battery historian的安装可以参考以下链接：<br><a href="https://github.com/google/battery-historian" target="_blank" rel="noopener">https://github.com/google/battery-historian</a><br><a href="https://developer.android.com/studio/profile/battery-historian" target="_blank" rel="noopener">https://developer.android.com/studio/profile/battery-historian</a><br>也可以直接使用在线版本：<br><a href="https://bathist.ef.lc/" target="_blank" rel="noopener">https://bathist.ef.lc/</a></p>
+<p>数据分析：</p>
+<ul>
+<li>选择腾讯视频app  </li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-12.jpg" alt="选择腾讯视频app"> </p>
+<ul>
+<li>Wacklocks表格中展示app持有的wacklock，持有时间及数量，通过这个表格我们可以看到我们APP是否有持有一小时以上的wack_lock。  </li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-13.jpg" alt="选择腾讯视频app"> </p>
+<ul>
+<li>Wakeup alarm info表格中展示了APP运行过程中触发的wakeup alarm名字和个数，通过该分析工具也可以统计app的闹钟唤醒次数。  </li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-14.jpg" alt="选择腾讯视频app"> </p>
+<h3 id="C-QAPM"><a href="#C-QAPM" class="headerlink" title="C. QAPM"></a>C. <strong>QAPM</strong></h3><p>QAPM是SNG开发的致力于解放专项测试人员的工具平台，该平台带有电量监控功能，在电量个例菜单中会统计前台30分钟、后台5分钟两个场景下的wacklock持有信息。该平台上的数据可以作为我们电量测试的参考对象，具体的统计方法还需后续深入了解。</p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-15.jpg" alt="选择腾讯视频app"> </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-16.jpg" alt="选择腾讯视频app"> </p>
+<h3 id="D-dumpsys命令"><a href="#D-dumpsys命令" class="headerlink" title="D. dumpsys命令"></a>D. <strong>dumpsys命令</strong></h3><p>Android提供的dumpsys工具能够用于查看感兴趣的系统服务信息与状态，手机连接电脑后能够直接命令行运行adb shell dumpsys 查看电池、电量相关信息。 </p>
+<p><strong>adb shell dumpsys power</strong>  </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-17.jpg" alt="shell"> </p>
+<p>通过该条命令可以看到手机中所有的wack_lock持有信息</p>
+<p><strong>adb shell dumpsys alarm</strong>   </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-18.jpg" alt="shell"> </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-19.jpg" alt="shell"> </p>
+<p>此命令会提供设备上的alarm系统服务相关信息。其中Alarm Stats列出了应用设置alarm的情况，其中有系统被该应用所有alarm消耗的时间以及被闹钟唤醒的次数。可以通过获取一小时内的电量数据来分析用户在每小时的唤醒次数。<br>相关链接： <a href="https://blog.csdn.net/memoryjs/article/details/48709183" target="_blank" rel="noopener">https://blog.csdn.net/memoryjs/article/details/48709183</a><br>该方法与通过burgreport文件统计电量信息类似，都是通过Android系统中提供的工具来输出电量的消耗情况，且该种方式输出的报告也比较复杂，可读性查，可在测试过程中作为参考。</p>
+<h1 id="4、国际版电量测试方法总结与实践"><a href="#4、国际版电量测试方法总结与实践" class="headerlink" title="4、国际版电量测试方法总结与实践"></a>4、国际版电量测试方法总结与实践</h1><h2 id="4-1-测试方法总结"><a href="#4-1-测试方法总结" class="headerlink" title="4.1 测试方法总结"></a>4.1 测试方法总结</h2><p>根据上一节的测试方法研究，我们打算首先用GT测试各个场景中APP电量消耗是否有异常。<br>接下来采用battery historian分析工具对手机里获取的bugreport文件进行分析，统计app中持有超过一小时的wack_lock和一小时内发生的wackup数。<br>QAPM中采集到的数据作为我们的辅助分析数据，我们可以比较两份数据，看我们通过battery historian统计的wack_lock数据是否准确。<br>我们也可以通过使用dumpsys命令，查看app电量相关信息作为测试辅助方法。</p>
+<h2 id="4-2-测试方法实践"><a href="#4-2-测试方法实践" class="headerlink" title="4.2 测试方法实践"></a>4.2 测试方法实践</h2><p>腾讯视频国际版1.0.0已经发布，我们已经使用该方法对其进行了一次电量测试，具体测试过程如下：</p>
+<h3 id="A-GT测试："><a href="#A-GT测试：" class="headerlink" title="A. GT测试："></a>A. <strong>GT测试</strong>：</h3><h4 id="测试场景：启动-播放-前台静置"><a href="#测试场景：启动-播放-前台静置" class="headerlink" title="测试场景：启动-播放-前台静置"></a>测试场景：启动-播放-前台静置</h4><h4 id="测试机器：nexus"><a href="#测试机器：nexus" class="headerlink" title="测试机器：nexus"></a>测试机器：nexus</h4><h4 id="测试结果分析："><a href="#测试结果分析：" class="headerlink" title="测试结果分析："></a>测试结果分析：</h4><p><strong>从以下电流趋势变化图中可以看出，播放过程和前台静置过程，电流曲线平稳，无较大波动，无明显异常。<br>从播放到退出播放前台静置，使用电流明显变小，符合预期。</strong>   </p>
+<p><img src="https://raw.githubusercontent.com/yaitza/yaitza.github.io/master/images/images//Test/2019-02-20-Android-Quantity-19.jpg" alt="电流"> </p>
+<h3 id="B-Battery-Historian测试："><a href="#B-Battery-Historian测试：" class="headerlink" title="B. Battery Historian测试："></a>B. <strong>Battery Historian测试</strong>：</h3><h4 id="测试场景："><a href="#测试场景：" class="headerlink" title="测试场景："></a>测试场景：</h4><p>app前台静置2小时<br>app后台静置2小时<br>全屏播放2小时  </p>
+<h4 id="测试型号："><a href="#测试型号：" class="headerlink" title="测试型号："></a>测试型号：</h4><p>Y7 Pro 2018 （LDN-LX2）<br>OPPO F7 （CPH1819）  </p>
+<h4 id="测试结果分析：-1"><a href="#测试结果分析：-1" class="headerlink" title="测试结果分析："></a>测试结果分析：</h4><p>三个场景中，仅播放场景下会持有WindowManager这个wakelock超过1小时以上。而Android Vitals中关注的是app运行在后台时，长时间持有部分唤醒锁的情况，播放这个场景可以排除在外，因此得出结论，国际版APP持有唤醒锁情况正常。</p>
+<table>
+<thead>
+<tr>
+<th>场景</th>
+<th>机型</th>
+<th>持有1小时以上的wack lock</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>app前台</td>
+<td>华为Y7 Pro 2018 （LDN-LX2）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>app前台</td>
+<td>OPPO F7 （CPH1819）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>app后台</td>
+<td>华为Y7 Pro 2018 （LDN-LX2）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>app后台</td>
+<td>OPPO F7 （CPH1819）</td>
+<td>无</td>
+</tr>
+<tr>
+<td>全屏播放</td>
+<td>华为Y7 Pro 2018 （LDN-LX2）</td>
+<td>WindowManager</td>
+</tr>
+<tr>
+<td>全屏播放</td>
+<td>OPPO F7 （CPH1819）</td>
+<td>WindowManager</td>
+</tr>
+</tbody></table>
+<p><strong>测试过程中没有统计到alarm数据，说明国际版APP暂时没有使用到AlarmManager定时任务。</strong></p>
+<h3 id="C-测试结论："><a href="#C-测试结论：" class="headerlink" title="C. 测试结论："></a>C. 测试结论：</h3><h4 id="GT电流测试显示国际版APP各应用场景电量使用情况正常。"><a href="#GT电流测试显示国际版APP各应用场景电量使用情况正常。" class="headerlink" title="GT电流测试显示国际版APP各应用场景电量使用情况正常。"></a>GT电流测试显示国际版APP各应用场景电量使用情况正常。</h4><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>启动APP</th>
+<th>播放</th>
+<th>退出播放，前台静置</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>结论</td>
+<td>启动过程需加载图片等资源，电流较大，正常</td>
+<td>播放过程电流平稳无异常</td>
+<td>退出播放电流变小，静置过程平稳无异常</td>
+</tr>
+</tbody></table>
+<h4 id="Battery-Historian分析电量数据得出，前台静置、后台静置、播放三个场景中仅播放场景会持有wack-lock1小时以上，不属于Android-Vitals统计范畴，不会影响到国际版APP在Google-Play商店的排名。"><a href="#Battery-Historian分析电量数据得出，前台静置、后台静置、播放三个场景中仅播放场景会持有wack-lock1小时以上，不属于Android-Vitals统计范畴，不会影响到国际版APP在Google-Play商店的排名。" class="headerlink" title="Battery Historian分析电量数据得出，前台静置、后台静置、播放三个场景中仅播放场景会持有wack lock1小时以上，不属于Android Vitals统计范畴，不会影响到国际版APP在Google Play商店的排名。"></a>Battery Historian分析电量数据得出，前台静置、后台静置、播放三个场景中仅播放场景会持有wack lock1小时以上，不属于Android Vitals统计范畴，不会影响到国际版APP在Google Play商店的排名。</h4><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>机型</th>
+<th>stuck wake locks</th>
+<th>excessive wakeups</th>
+<th>结论</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>前台静置</td>
+<td>华为Y7 Pro 2018 （LDN-LX2）</td>
+<td>无唤醒锁定卡住</td>
+<td>无过渡唤醒</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>前台静置</td>
+<td>OPPO F7 （CPH1819）</td>
+<td>无唤醒锁定卡住</td>
+<td>无过渡唤醒</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>后台静置</td>
+<td>华为Y7 Pro 2018 （LDN-LX2）</td>
+<td>无唤醒锁定卡住</td>
+<td>无过渡唤醒</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>后台静置</td>
+<td>OPPO F7 （CPH1819）</td>
+<td>无唤醒锁定卡住</td>
+<td>无过渡唤醒</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>播放</td>
+<td>华为Y7 Pro 2018 （LDN-LX2）</td>
+<td>持有唤醒锁1小时以上</td>
+<td>无过渡唤醒</td>
+<td>正常</td>
+</tr>
+<tr>
+<td>播放</td>
+<td>OPPO F7 （CPH1819）</td>
+<td>持有唤醒锁1小时以上</td>
+<td>无过渡唤醒</td>
+<td>正常</td>
+</tr>
+</tbody></table>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/Android/" rel="tag"># Android</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>🐶 您的支持将鼓励我继续创作 🐶</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.jpg" alt="Yaitza Young WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.jpg" alt="Yaitza Young Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+        
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Yaitza Young 的个人博客">Yaitza Young</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://yaitza.cn/2019/02/20/2019-02-20-Android-Quantity/" title="Android电量测试方法研究与总结">Android电量测试方法研究与总结</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://yaitza.cn/2019/02/20/2019-02-20-Android-Quantity/" title="Android电量测试方法研究与总结">http://yaitza.cn/2019/02/20/2019-02-20-Android-Quantity/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2019年2月20日 - 00时02分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Yaitza Young 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/10/23/2018-10-23-NFC-Setting/" rel="next" title="手机天府通卡开卡教程【电信】">
+                <i class="fa fa-chevron-left"></i> 手机天府通卡开卡教程【电信】
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/10/18/2019-10-18-My-Chief-and-My-Regiment/" rel="prev" title="《我的团长我的团》观后感">
+                《我的团长我的团》观后感 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODM2NS80OTM3"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yaitza Young" />
+          <p class="site-author-name" itemprop="name">Yaitza Young</p>
+          <p class="site-description motion-element" itemprop="description">yaitza's steps</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/true" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yaitza" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/jay-Come-on/" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  cnblogs
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.woaitqs.cc/" title="Qisen Tang" target="_blank">Qisen Tang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://szhshp.org" title="szhshp的博客" target="_blank">szhshp的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.zhangwei.website" title="JuniorCoder" target="_blank">JuniorCoder</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#1-研究背景"><span class="nav-text">1. 研究背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#2-核心指标详细信息"><span class="nav-text">2. 核心指标详细信息</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1-Stuck-partial-wake-locks（部分唤醒锁定卡住）"><span class="nav-text">2.1 Stuck partial wake locks（部分唤醒锁定卡住）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-WakeLock（唤醒锁）基本概念："><span class="nav-text">A.WakeLock（唤醒锁）基本概念：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Partial-wake-locks（部分唤醒锁）："><span class="nav-text">B.Partial wake locks（部分唤醒锁）：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2-Excessive-wakeups（过渡唤醒）"><span class="nav-text">2.2 Excessive wakeups（过渡唤醒）</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Wakeups-基本概念"><span class="nav-text">A.Wakeups 基本概念</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-RTC-WAKEUP"><span class="nav-text">1. RTC_WAKEUP</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-RTC"><span class="nav-text">2. RTC</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-ELAPSED-REALTIME"><span class="nav-text">3. ELAPSED_REALTIME</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-ELAPSED-REALTIME-WAKEUP"><span class="nav-text">4. ELAPSED_REALTIME_WAKEUP</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#3、测试方法研究"><span class="nav-text">3、测试方法研究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1-传统电量测试方法回顾"><span class="nav-text">3.1 传统电量测试方法回顾</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-物理仪器测试法（电流表等）"><span class="nav-text">A.物理仪器测试法（电流表等）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-GT测试法"><span class="nav-text">B.GT测试法</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2-国际版电量测试方法预研"><span class="nav-text">3.2 国际版电量测试方法预研</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-Batterystats-bugreport"><span class="nav-text">A. Batterystats&#x2F; bugreport</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-battery-historian"><span class="nav-text">B. battery historian</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-QAPM"><span class="nav-text">C. QAPM</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#D-dumpsys命令"><span class="nav-text">D. dumpsys命令</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#4、国际版电量测试方法总结与实践"><span class="nav-text">4、国际版电量测试方法总结与实践</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1-测试方法总结"><span class="nav-text">4.1 测试方法总结</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2-测试方法实践"><span class="nav-text">4.2 测试方法实践</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#A-GT测试："><span class="nav-text">A. GT测试：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试场景：启动-播放-前台静置"><span class="nav-text">测试场景：启动-播放-前台静置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试机器：nexus"><span class="nav-text">测试机器：nexus</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试结果分析："><span class="nav-text">测试结果分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-Battery-Historian测试："><span class="nav-text">B. Battery Historian测试：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试场景："><span class="nav-text">测试场景：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试型号："><span class="nav-text">测试型号：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试结果分析：-1"><span class="nav-text">测试结果分析：</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#C-测试结论："><span class="nav-text">C. 测试结论：</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#GT电流测试显示国际版APP各应用场景电量使用情况正常。"><span class="nav-text">GT电流测试显示国际版APP各应用场景电量使用情况正常。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Battery-Historian分析电量数据得出，前台静置、后台静置、播放三个场景中仅播放场景会持有wack-lock1小时以上，不属于Android-Vitals统计范畴，不会影响到国际版APP在Google-Play商店的排名。"><span class="nav-text">Battery Historian分析电量数据得出，前台静置、后台静置、播放三个场景中仅播放场景会持有wack lock1小时以上，不属于Android Vitals统计范畴，不会影响到国际版APP在Google Play商店的排名。</span></a></li></ol></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaitza Young</span>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>

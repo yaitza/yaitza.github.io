@@ -1,0 +1,1226 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+  <meta name="google-site-verification" content="F7u1qs7cxrGKFwGYVBckaESSUUKfgMVBnuZZUvdI5RA" />
+
+
+
+
+  <meta name="baidu-site-verification" content="3z8x68py8V" />
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <link href="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.min.css" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+      
+    
+
+    
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Lobster Two:300,300italic,400,400italic,700,700italic|consolas:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+  
+
+<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.2/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="AutoTest," />
+
+
+
+
+
+  <link rel="alternate" href="/true" title="Yaitza" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="1. XPath节点  XPath语言中提供了7种节点：文档节点(根节点)、元素、属性、文本、命名空间、处理指令、以及注释。XML文档被作为节点树对待，树的根被称作文档节点或根节点。 1.1 节点  XML实例文档    123456789&lt;?xml version &#x3D; &quot;1.0&quot; encoding &#x3D; &quot;utf-8&quot; ?&gt;  &lt;!-- 这是一个注释节点--&gt;  &lt;b">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Selenium之XPath元素定位">
+<meta property="og:url" content="http://yaitza.cn/2018/01/29/2018-01-29-Selenium-XPathLocation/index.html">
+<meta property="og:site_name" content="Yaitza">
+<meta property="og:description" content="1. XPath节点  XPath语言中提供了7种节点：文档节点(根节点)、元素、属性、文本、命名空间、处理指令、以及注释。XML文档被作为节点树对待，树的根被称作文档节点或根节点。 1.1 节点  XML实例文档    123456789&lt;?xml version &#x3D; &quot;1.0&quot; encoding &#x3D; &quot;utf-8&quot; ?&gt;  &lt;!-- 这是一个注释节点--&gt;  &lt;b">
+<meta property="article:published_time" content="2018-01-28T16:00:00.000Z">
+<meta property="article:modified_time" content="2021-06-09T00:57:57.165Z">
+<meta property="article:author" content="Yaitza Young">
+<meta property="article:tag" content="AutoTest">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"right","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 'undefined',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yaitza.cn/2018/01/29/2018-01-29-Selenium-XPathLocation/"/>
+
+
+
+
+
+<script src="//cdn.bootcss.com/pace/1.0.2/pace.min.js"></script>
+<link href="//cdn.bootcss.com/pace/1.0.2/themes/pink/pace-theme-flash.css" rel="stylesheet">
+<style>
+    .pace .pace-progress {
+        background: #1E92FB; /*进度条颜色*/
+        height: 3px;
+    }
+    .pace .pace-progress-inner {
+         box-shadow: 0 0 10px #1E92FB, 0 0 5px     #1E92FB; /*阴影颜色*/
+    }
+    .pace .pace-activity {
+        border-top-color: #1E92FB;    /*上边框颜色*/
+        border-left-color: #1E92FB;    /*左边框颜色*/
+    }
+</style>
+
+
+  <title> Selenium之XPath元素定位 | Yaitza </title>
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-97814311-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "https://hm.baidu.com/hm.js?6df12946920b864a0ece38cbc1f9af63";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+  <div style="display: none;">
+    <script src="//s95.cnzz.com/z_stat.php?id=1279058270&web_id=1279058270" language="JavaScript"></script>
+  </div>
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-right page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta custom-logo">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Yaitza</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <h1 class="site-subtitle" itemprop="description"></h1>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup">
+ <span class="search-icon fa fa-search"></span>
+ <input type="text" id="local-search-input">
+ <div id="local-search-result"></div>
+ <span class="popup-btn-close">close</span>
+</div>
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://yaitza.cn/2018/01/29/2018-01-29-Selenium-XPathLocation/">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Yaitza Young">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/avatar.gif">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Yaitza">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Yaitza" src="/images/avatar.jpg">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h2 class="post-title" itemprop="name headline">
+            
+            
+              
+                Selenium之XPath元素定位
+              
+            
+          </h2>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-01-29T00:00:00+08:00">
+                2018-01-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%B5%8B%E8%AF%95/" itemprop="url" rel="index">
+                    <span itemprop="name">测试</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+		  
+			 
+          
+          
+		   
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv">本文总阅读量
+            <span class="busuanzi-value" id="busuanzi_value_page_pv" ></span>次
+            </span>
+          
+
+		  
+            <div class="post-wordcount">
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计</span>
+                
+                <span title="字数统计">
+                  3.5k
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长</span>
+                
+                <span title="阅读时长">
+                  13
+                </span>
+              
+            </div>
+          
+		  
+          
+ 
+        
+
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-XPath节点"><a href="#1-XPath节点" class="headerlink" title="1. XPath节点"></a>1. XPath节点</h2><p>  XPath语言中提供了7种节点：文档节点(根节点)、元素、属性、文本、命名空间、处理指令、以及注释。XML文档被作为节点树对待，树的根被称作文档节点或根节点。</p>
+<h3 id="1-1-节点"><a href="#1-1-节点" class="headerlink" title="1.1 节点"></a>1.1 节点</h3><p>  <strong>XML实例文档</strong>   </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">&lt;?xml version = "1.0" encoding = "utf-8" ?&gt;</span>  </span><br><span class="line"><span class="comment">&lt;!-- 这是一个注释节点--&gt;</span>  </span><br><span class="line"><span class="tag">&lt;<span class="name">booklist</span> <span class="attr">type</span> = <span class="string">"kongfu"</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;<span class="name">book</span> <span class="attr">category</span> = <span class="string">"kongfu"</span>&gt;</span>  </span><br><span class="line">		<span class="tag">&lt;<span class="name">title</span>&gt;</span>葵花宝典<span class="tag">&lt;/<span class="name">title</span>&gt;</span>  </span><br><span class="line">		<span class="tag">&lt;<span class="name">author</span>&gt;</span>东方不败<span class="tag">&lt;/<span class="name">author</span>&gt;</span>  </span><br><span class="line">		<span class="tag">&lt;<span class="name">pageNumber</span>&gt;</span>400<span class="tag">&lt;/<span class="name">pageNumber</span>&gt;</span>  </span><br><span class="line">	<span class="tag">&lt;/<span class="name">book</span>&gt;</span>  </span><br><span class="line"><span class="tag">&lt;/<span class="name">booklist</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  在上面的XML文档实例中展示的节点如下：   </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">booklist</span>&gt;</span>:文档节点  </span><br><span class="line"><span class="tag">&lt;<span class="name">title</span>&gt;</span>:元素节点   </span><br><span class="line">type = "kongfu":属性节点</span><br></pre></td></tr></table></figure>
+<h3 id="1-2-节点间的关系"><a href="#1-2-节点间的关系" class="headerlink" title="1.2 节点间的关系"></a>1.2 节点间的关系</h3><h4 id="1-父节点-Parent"><a href="#1-父节点-Parent" class="headerlink" title="(1)父节点(Parent)"></a>(1)父节点(Parent)</h4><p>  每个元素以及属性都有一个父节点。上面的XML文档实例中，book元素是title、author以及pageNumber元素的父节点。  </p>
+<h4 id="2-子节点-Children"><a href="#2-子节点-Children" class="headerlink" title="(2)子节点(Children)"></a>(2)子节点(Children)</h4><p>  一个元素节点可有零个，一个或多个子节点。上面的XML文档实例中，title、author以及pageNumber元素是book元素的子节点。  </p>
+<h4 id="3-同胞节点-Sibling"><a href="#3-同胞节点-Sibling" class="headerlink" title="(3)同胞节点(Sibling)"></a>(3)同胞节点(Sibling)</h4><p>  同胞节点表示拥有相同父节点的节点。上面的XML文档实例中，title、author以及pageNumber元素都是同胞节点。  </p>
+<h4 id="4-先辈节点-Ancestor"><a href="#4-先辈节点-Ancestor" class="headerlink" title="(4)先辈节点(Ancestor)"></a>(4)先辈节点(Ancestor)</h4><p>  先辈节点表示的某节点的父节点，父节点的父节点，以及父节点的所有祖先节点。上面XML文档实例中，title元素的先辈节点有book和booklist。  </p>
+<h4 id="5-后代节点-Descendant"><a href="#5-后代节点-Descendant" class="headerlink" title="(5)后代节点(Descendant)"></a>(5)后代节点(Descendant)</h4><p>  后代节点表示某个节点的子节点，子节点的子节点，以及子节点的所有后代节点。上面的XML文档实例中，booklist元素的后代节点有book、title、author以及pageNumber元素。  </p>
+<h2 id="2-Xpath定位语法"><a href="#2-Xpath定位语法" class="headerlink" title="2. Xpath定位语法"></a>2. Xpath定位语法</h2><p>  由于用于Web开发的的HTML语言的语法结构跟XML很相似，所以XPath也支持在HTML代码中定位HTML树状文档结构中的节点。<br>  <strong>被测试网页的HTML代码：</strong>   </p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">html</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">body</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div1"</span> <span class="attr">style</span>=<span class="string">"text-align: center"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">"dvi1-img1"</span> </span></span><br><span class="line"><span class="tag">                 <span class="attr">src</span>=<span class="string">"http://www.sougou.com/images/logo/new/sougou.png"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">href</span>=<span class="string">"http://www.sougou.com"</span>&gt;</span>搜狗图片<span class="tag">&lt;/<span class="name">img</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"div1input"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.sougou.com"</span>&gt;</span>搜狗搜索<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"查询"</span>&gt;</span> </span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">br</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">"div2"</span> <span class="attr">style</span>=<span class="string">"text-align: center"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">"dvi2-img2"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">src</span>=<span class="string">"http://www.baidu.com/img/bdlogo.png"</span></span></span><br><span class="line"><span class="tag">                 <span class="attr">href</span>=<span class="string">"http://www.baidu.com"</span>&gt;</span>百度图片<span class="tag">&lt;/<span class="name">img</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">name</span>=<span class="string">"div1input"</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">a</span> <span class="attr">href</span>=<span class="string">"http://www.baidu.com"</span>&gt;</span>百度搜索<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">"button"</span> <span class="attr">value</span>=<span class="string">"查询"</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>  使用上面的HTML代码生成被测试网页，基于此网页来实践各种不同页面元素的XPath定位方法。  </p>
+<h3 id="2-1-使用绝对路径来定位元素"><a href="#2-1-使用绝对路径来定位元素" class="headerlink" title="2.1 使用绝对路径来定位元素"></a>2.1 使用绝对路径来定位元素</h3><p>  绝对路径表示页面元素在被测网页的HTML代码结构中，从根节点一层层地搜索到需要被定位的页面元素，绝对路径起始于正斜杠(/)，每一步均被斜杠分割。<br>  <strong>目的：</strong> 在被测网页中，查找第一个div标签下的“查询”按钮。<br>  <strong>XPath定位表达式：</strong> /html/body/div/input[@value=”查询”]<br>  <strong>Python定位语句：</strong> query = driver.find_element_by_xpath(‘/html/body/div/input[@value=”查询”]’)<br>  <strong>代码解释：</strong><br>  上述XPath定位表达式从HTML DOM树的根节点(html节点)开始逐层查找，最后定位到“查询”按钮节点。路径表达式“/”表示根节点。<br>  <strong>更多说明:</strong><br>  使用绝对路径定位页面元素的好处在于可以验证页面是否发生变化。如果页面结构发生变化，可能会造成原先有效的XPath表达式失效。使用绝对路径定位是十分脆弱的，因为即使页面代码结构只发生微小的变化，也可能会造成原先有效的XPath定位表达式定位失效。因此，建议在自动化测试的定位实施环节中，优先考虑相对路径进行页面元素定位。  </p>
+<h3 id="2-2-使用相对路径来定位元素"><a href="#2-2-使用相对路径来定位元素" class="headerlink" title="2.2 使用相对路径来定位元素"></a>2.2 使用相对路径来定位元素</h3><p>  相对路径的每一步都根据当前节点集之中的节点来进行计算，起始于双正斜杠(//)。<br>  <strong>目的：</strong> 在被测网页中，查找第一个div标签下的“查询”按钮。<br>  <strong>XPath定位表达式：</strong> //input[@value=”查询”]<br>  <strong>Python定位语句：</strong> query = driver.find_element_by_xpath(‘//input[@value=”查询”]’)<br>  <strong>代码解释：</strong><br>  上述XPath定位表达式中的“//”表示从匹配选择的当前节点开始选择文档中的节点，而不考虑它们的位置。input[@value=”查询”]表示定位value值为“查询”两个字的input页面元素。<br>  <strong>更多说明:</strong><br>  相对路径的XPath定位表达式更加简洁，不管页面发生了何种变化，只要input标签的value属性值没变，始终可以定位到。推荐使用相对路径的XPath表达式，并且越简洁越好，可大大降低测试脚本定位的表达式的维护成本。    </p>
+<h3 id="2-3-使用索引号定位元素"><a href="#2-3-使用索引号定位元素" class="headerlink" title="2.3 使用索引号定位元素"></a>2.3 使用索引号定位元素</h3><p>  索引号表示某个被定位的页面元素在其父元素节点下的同名元素中的位置序号，需要从1开始。<br>  <strong>目的：</strong> 在被测网页中，查找第一个div标签下的“查询”按钮。<br>  <strong>XPath定位表达式：</strong> //input[2]<br>  <strong>Python定位语句：</strong> query = driver.find_element_by_xpath(‘//input[2]’)<br>  <strong>代码解释：</strong><br>  索引号定位方式是根据该页面元素在页面中相同标签名之间的出现的索引位置来进行定位的。上述XPath定位表达式表示查找页面中第二个出现的input元素，即测试页面上的“查询”按钮。<br>  <strong>更多说明:</strong><br>  若在Firefox浏览器的FirePath插件使用“//input[1]”定位表达式进行页面元素定位，可以发现在被测试网页的HTML代码区域高亮显示了两行代码，两个div标签下的第一个input标签都被定位到，这和只查找第一个input元素相冲突，这是由于被测试网页中的两个div标签下都包含了input标签，XPath在查找的时候把每个div节点都当作相同的起始层级开始查找，所以用“//input[1]”表达式会同时查找到两个div节点下的第一个input元素。如果在两个div标签下还有嵌套的div，并且嵌套的div下也有input标签，使用“//input[1]”定位表达式，也会定位到嵌套div下的input标签，也就是说无论嵌套多少层HTML标签，只要这些HTML标签的子标签里有input标签，第一个input标签都会被定位点。因此在使用索引号定位页面元素的时候，需要注意网页HTML代码中是否包含了多个层级完全相同的代码结构，若出现了这种情况，就需要修改定位表达式，以确保自动化测试脚本中使用的定位表达式能唯一定位所需要的页面元素。<br>  但如果想同时定位多个相同的input页面元素，可以使用如下Python语句：<br>  inputList = driver.find_elements_by_xpath(“//input[1]”)<br>  将定位的多个元素存储到list对象中，然后根据list对象的索引号获取想要的页面元素。但如果发现页面元素会经常增加或减少，就不建议使用索引号定位的方式，因为页面变化很可能会让使用索引号的XPath定位表达式失效。<br>  基于实例中的被测试网页，下面给出更多通过索引号定位的实例。  </p>
+<table>
+<thead>
+<tr>
+<th>预期定位的页面元素</th>
+<th>定位表达式实例</th>
+<th>使用的属性值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定位第二个div下的超链接</td>
+<td>//div[last()]/a</td>
+<td>div[last()]表示最后一个div元素，last()函数获取的是指定元素的的最后索引号</td>
+</tr>
+<tr>
+<td>定位第一个div中的超链接</td>
+<td>//div[last()-1]/a</td>
+<td>div[last()-1]表示倒数第二个div元素</td>
+</tr>
+<tr>
+<td>定位最前面一个属于div元素的子元素中的input元素</td>
+<td>//div/input[position()&lt;2]</td>
+<td>position()函数获取当前元素input的位置序列号</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-使用页面元素的属性值定位元素"><a href="#2-4-使用页面元素的属性值定位元素" class="headerlink" title="2.4 使用页面元素的属性值定位元素"></a>2.4 使用页面元素的属性值定位元素</h3><p>  在定位页面元素的时候，经常会遇到各种复杂结构的被测试网页，并且很多页面元素也没有设计ID，Name等属性，同时又不想使用绝对路径或索引号来定位页面元素，但是发现要被定位的页面元素拥有某些固定不变的的属性和属性值，此时推荐使用属性定位方式来定位页面元素。<br>  <strong>目的：</strong> 在被测网页中，定位网页中的第一张img元素。<br>  <strong>XPath定位表达式：</strong> //img[@alt=”div1-img1”]<br>  <strong>Python定位语句：</strong> img = driver.find_element_by_xpath(‘//img[@alt=”div1-img1”]’)<br>  <strong>代码解释：</strong><br>  表达式使用了相对路径再结合元素拥有的特定属性的方法进行定位，定位元素img的属性是”alt”,其属性值为”div1-img1”，使用@符号指明后面接的是属性，并同属性及属性值一同写到元素后面的方括号中。<br>  <strong>更多说明:</strong><br>  被测试网页的元素通常会包含各种各样的属性值，并且很多属性值是唯一的。若能确认属性值不变且唯一，建议使用相对路径再结合属性值的定位方式来编写XPath定位表达式，使用此方法可以解决99%的页面元素定位难题。  </p>
+<table>
+<thead>
+<tr>
+<th>预期定位的页面元素</th>
+<th>定位表达式实例</th>
+<th>使用的属性值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定位页面的第一张图片</td>
+<td>//img[@href=’<a href="http://www.sougou.com&#39;]" target="_blank" rel="noopener">http://www.sougou.com&#39;]</a></td>
+<td>使用img标签的href属性值</td>
+</tr>
+<tr>
+<td>定位第二个div中的第一个input输入框</td>
+<td>//div[@name=’div2’]/input[@name=’div2input’]</td>
+<td>使用div标签的name属性值，使用input标签的name属性值</td>
+</tr>
+<tr>
+<td>定位第一个div中的第一个链接</td>
+<td>//div[@id=’div1’]/a[@href=’<a href="http://www.sougou.com&#39;]" target="_blank" rel="noopener">http://www.sougou.com&#39;]</a></td>
+<td>使用div标签的ID属性值，使用a标签的href属性值</td>
+</tr>
+<tr>
+<td>定位页面的查询按钮</td>
+<td>//input[@type=’button’]</td>
+<td>使用type属性值</td>
+</tr>
+</tbody></table>
+<h3 id="2-5-使用模糊属性值定位元素"><a href="#2-5-使用模糊属性值定位元素" class="headerlink" title="2.5 使用模糊属性值定位元素"></a>2.5 使用模糊属性值定位元素</h3><p>  模糊属性值定位方式表示使用属性值的一部分内容进行定位。在自动化测试的实施过程中，常常会遇到页面元素的属性值是动态生成的，也就是时候每次访问属性值都不一样，此类页面元素会加大定位难度，使用模糊属性值定位方式可以解决一部分此类难题，但前提是属性值中有一部分内容保存不变。XPath提供了一些课实现模糊属性值定位的函数。  </p>
+<table>
+<thead>
+<tr>
+<th>XPath函数</th>
+<th>定位表达式实例</th>
+<th>使用的属性值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>start-with(str1,str2)</td>
+<td>//img[start-with(@alt,’div1’)]</td>
+<td>查找属性alt的属性值以“div1”关键字开始的页面元素</td>
+</tr>
+<tr>
+<td>contains(str1,str2)</td>
+<td>//img[contains(@alt,’img’)]</td>
+<td>查找alt属性的属性值包含“img”关键字的页面元素，只要包含即可，无需考虑位置</td>
+</tr>
+</tbody></table>
+<p>  contains()函数属于XPath的高级用法，使用场景较多，尽管页面元素的属性值经常发生变化，但只要其属性值有几个固定不变的关键字，就可以使用contains()函数进行定位。  </p>
+<h3 id="2-6-使用XPath轴-Axes-定位元素"><a href="#2-6-使用XPath轴-Axes-定位元素" class="headerlink" title="2.6 使用XPath轴(Axes)定位元素"></a>2.6 使用XPath轴(Axes)定位元素</h3><p>  轴可以定义相对于当前节点的节点集。使用XPath(Axes)定位方式可根据在文档树中的元素相对位置关系进行页面元素定位。先找到一个相对好定位的元素，让它作为轴，根据它和要定位元素间的相对位置关系进行定位，可以解决一些元素难定位的问题。  </p>
+<table>
+<thead>
+<tr>
+<th>XPath轴关键字/轴的含义说明</th>
+<th>定位表达式实例</th>
+<th>使用的属性值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>parent:选择当前节点的上层父节点</td>
+<td>//img[@alt=’div2-img2’]/parent::div</td>
+<td>查找属性alt的属性值为div2-img2的img元素，并基于该img元素的位置找到它上一级的div页面元素</td>
+</tr>
+<tr>
+<td>child:选择当前节点的下层所有子节点</td>
+<td>//div[@id=’div1’]/child::img</td>
+<td>查找到ID属性为div1的div元素，并基于div的位置找到它的下层节点中的img元素</td>
+</tr>
+<tr>
+<td>ancestor:选择当前节点的所有上层的节点</td>
+<td>//img[@alt=’div2-img2’]/ancestor::div</td>
+<td>查找到属性alt的属性值为div2-img2的img元素，并基于该img元素的位置找到它上级的div页面元素</td>
+</tr>
+<tr>
+<td>descendant:选择当前节点所有下层的节点(子，孙等)</td>
+<td>//div[@name=’div2’]/descendant::img</td>
+<td>查找到属性name的属性值为div2-img2的img元素，并基于该元素的位置查找到它的下级所有节点中的img页面元素</td>
+</tr>
+<tr>
+<td>following:选择在当前节点之后显示的所有节点</td>
+<td>//div[@id=’div1’]/following::img</td>
+<td>查到到ID属性值为div1的div页面元素，并基于div的位置找到它后面节点中的img页面元素</td>
+</tr>
+<tr>
+<td>following-sibling:选择当前节点后续所有兄弟节点</td>
+<td>//a[@href=’<a href="http://www.sougou.com&#39;]/following-sibling::input" target="_blank" rel="noopener">http://www.sougou.com&#39;]/following-sibling::input</a></td>
+<td>查找到链接地址为<a href="http://www.sougou.com的链接页面元素a,并基于链接的位置找到它后续的兄弟节点中的input页面元素" target="_blank" rel="noopener">http://www.sougou.com的链接页面元素a,并基于链接的位置找到它后续的兄弟节点中的input页面元素</a></td>
+</tr>
+<tr>
+<td>preceding:选择当前节点前面的所有节点</td>
+<td>//img[@alt=’div2-img2’]/preceding::div</td>
+<td>查到到属性alt的属性值为div2-img2的图片页面元素img，并基于图片的位置找到它前面节点中的div页面元素</td>
+</tr>
+<tr>
+<td>preceding-sibling:选择当前节点前面的所有兄弟节点</td>
+<td>//input[@value=’查询’]/preceding-sibling::a[1]</td>
+<td>查找到value属性值为“查询”的输入框页面元素，并基于该输入框的位置找到它前面同级节点中的第一个链接页面元素</td>
+</tr>
+</tbody></table>
+<p>  <strong>更多说明:</strong><br>  有时候我们会在轴的后面加一个星号(<em>)，表示通配符，比如//input[@value=’查询’]/preceding-sibling::</em>,它表示查找属性value的值为“查询”的输入框input元素前面所有的同级元素，但不包括input元素本身。</p>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+  
+        <div class="post-tags">
+          
+            <a href="/tags/AutoTest/" rel="tag"># AutoTest</a>
+          
+        </div>
+      
+
+
+    <div>
+      
+        
+  <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+    <div>🐶 您的支持将鼓励我继续创作 🐶</div>
+    <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+      <span>赞赏</span>
+    </button>
+    <div id="QR" style="display: none;">
+      
+        <div id="wechat" style="display: inline-block">
+          <img id="wechat_qr" src="/images/wechat-reward-img.jpg" alt="Yaitza Young WeChat Pay"/>
+          <p>微信打赏</p>
+        </div>
+      
+      
+        <div id="alipay" style="display: inline-block">
+          <img id="alipay_qr" src="/images/alipay-reward-img.jpg" alt="Yaitza Young Alipay"/>
+          <p>支付宝打赏</p>
+        </div>
+      
+    </div>
+  </div>
+
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+        
+     <div>    
+      
+      <ul class="post-copyright">
+         <li class="post-copyright-link">
+          <strong>本文作者：</strong>
+          <a href="/" title="欢迎访问 Yaitza Young 的个人博客">Yaitza Young</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文标题：</strong>
+          <a href="http://yaitza.cn/2018/01/29/2018-01-29-Selenium-XPathLocation/" title="Selenium之XPath元素定位">Selenium之XPath元素定位</a>
+        </li>
+
+        <li class="post-copyright-link">
+          <strong>本文链接：</strong>
+          <a href="http://yaitza.cn/2018/01/29/2018-01-29-Selenium-XPathLocation/" title="Selenium之XPath元素定位">http://yaitza.cn/2018/01/29/2018-01-29-Selenium-XPathLocation/</a>
+        </li>
+
+        <li class="post-copyright-date">
+            <strong>发布时间：</strong>2018年1月29日 - 00时01分
+        </li>  
+
+        <li class="post-copyright-license">
+          <strong>版权声明： </strong>
+          本文由 Yaitza Young 原创，采用 <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/deed.zh" rel="license" target="_blank">保留署名-非商业性使用-禁止演绎 4.0-国际许可协议</a> </br>转载请保留以上声明信息！
+        </li>
+      </ul>
+    
+  </div>  
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2017/11/12/2017-11-12-TestAnalysis-DataAnalysis/" rel="next" title="测试数据分析">
+                <i class="fa fa-chevron-left"></i> 测试数据分析
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/07/15/2018-07-15-GIT-Rule/" rel="prev" title="Git 提交规范">
+                Git 提交规范 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+          
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div id="lv-container" data-id="city" data-uid="MTAyMC8yODM2NS80OTM3"></div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/avatar.gif"
+               alt="Yaitza Young" />
+          <p class="site-author-name" itemprop="name">Yaitza Young</p>
+          <p class="site-description motion-element" itemprop="description">yaitza's steps</p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">49</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">25</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/true" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/yaitza" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="https://www.cnblogs.com/jay-Come-on/" target="_blank" title="cnblogs">
+                  
+                    <i class="fa fa-fw fa-battery-3"></i>
+                  
+                  cnblogs
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+          <div class="links-of-blogroll motion-element links-of-blogroll-inline">
+            <div class="links-of-blogroll-title">
+              <i class="fa  fa-fw fa-globe"></i>
+              友情链接
+            </div>
+            <ul class="links-of-blogroll-list">
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://www.woaitqs.cc/" title="Qisen Tang" target="_blank">Qisen Tang</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://szhshp.org" title="szhshp的博客" target="_blank">szhshp的博客</a>
+                </li>
+              
+                <li class="links-of-blogroll-item">
+                  <a href="http://python.zhangwei.website" title="JuniorCoder" target="_blank">JuniorCoder</a>
+                </li>
+              
+            </ul>
+          </div>
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-XPath节点"><span class="nav-text">1. XPath节点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-1-节点"><span class="nav-text">1.1 节点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#1-2-节点间的关系"><span class="nav-text">1.2 节点间的关系</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-父节点-Parent"><span class="nav-text">(1)父节点(Parent)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-子节点-Children"><span class="nav-text">(2)子节点(Children)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-同胞节点-Sibling"><span class="nav-text">(3)同胞节点(Sibling)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-先辈节点-Ancestor"><span class="nav-text">(4)先辈节点(Ancestor)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#5-后代节点-Descendant"><span class="nav-text">(5)后代节点(Descendant)</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-Xpath定位语法"><span class="nav-text">2. Xpath定位语法</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-使用绝对路径来定位元素"><span class="nav-text">2.1 使用绝对路径来定位元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-2-使用相对路径来定位元素"><span class="nav-text">2.2 使用相对路径来定位元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-使用索引号定位元素"><span class="nav-text">2.3 使用索引号定位元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-4-使用页面元素的属性值定位元素"><span class="nav-text">2.4 使用页面元素的属性值定位元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-5-使用模糊属性值定位元素"><span class="nav-text">2.5 使用模糊属性值定位元素</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-6-使用XPath轴-Axes-定位元素"><span class="nav-text">2.6 使用XPath轴(Axes)定位元素</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2017 - 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Yaitza Young</span>
+</div>
+
+
+        
+
+<div class="busuanzi-count">
+
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">本站访客数<span class="busuanzi-value" id="busuanzi_value_site_uv"></span>人次</span>
+  
+
+  
+    <span class="site-pv">本站总访问量<span class="busuanzi-value" id="busuanzi_value_site_pv"></span>次</span>
+  
+  
+</div>
+
+
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery/2.1.3/jquery.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fastclick/1.0.6/fastclick.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/jquery.lazyload/1.9.3/jquery.lazyload.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/velocity/1.2.3/velocity.ui.min.js"></script>
+
+  
+  <script type="text/javascript" src="//cdn.jsdelivr.net/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+      <!-- UY BEGIN -->
+      <script type="text/javascript" src="http://v2.uyan.cc/code/uyan.js?uid="></script>
+      <!-- UY END -->
+  
+
+
+
+  
+    <script type="text/javascript">
+      (function(d, s) {
+        var j, e = d.getElementsByTagName(s)[0];
+        if (typeof LivereTower === 'function') { return; }
+        j = d.createElement(s);
+        j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+        j.async = true;
+        e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    </script>
+  
+
+
+  
+  
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length == 0) {
+      search_path = "search.xml";
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    function proceedsearch() {
+      $("body").append('<div class="popoverlay">').css('overflow', 'hidden');
+      $('.popup').toggle();
+    }
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+      $.ajax({
+        url: path,
+        dataType: "xml",
+        async: true,
+        success: function( xmlResponse ) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = $( "entry", xmlResponse ).map(function() {
+            return {
+              title: $( "title", this ).text(),
+              content: $("content",this).text(),
+              url: $( "url" , this).text()
+            };
+          }).get();
+          var $input = document.getElementById(search_id);
+          var $resultContent = document.getElementById(content_id);
+          $input.addEventListener('input', function(){
+            var matchcounts = 0;
+            var str='<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length > 1) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var content_index = [];
+                var data_title = data.title.trim().toLowerCase();
+                var data_content = data.content.trim().replace(/<[^>]+>/g,"").toLowerCase();
+                var data_url = decodeURIComponent(data.url);
+                var index_title = -1;
+                var index_content = -1;
+                var first_occur = -1;
+                // only match artiles with not empty titles and contents
+                if(data_title != '') {
+                  keywords.forEach(function(keyword, i) {
+                    index_title = data_title.indexOf(keyword);
+                    index_content = data_content.indexOf(keyword);
+                    if( index_title >= 0 || index_content >= 0 ){
+                      isMatch = true;
+                      if (i == 0) {
+                        first_occur = index_content;
+                      }
+                    }
+
+                  });
+                }
+                // show search results
+                if (isMatch) {
+                  matchcounts += 1;
+                  str += "<li><a href='"+ data_url +"' class='search-result-title'>"+ data_title +"</a>";
+                  var content = data.content.trim().replace(/<[^>]+>/g,"");
+                  if (first_occur >= 0) {
+                    // cut out 100 characters
+                    var start = first_occur - 20;
+                    var end = first_occur + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if(start == 0){
+                      end = 50;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    var match_content = content.substring(start, end);
+                    // highlight all keywords
+                    keywords.forEach(function(keyword){
+                      var regS = new RegExp(keyword, "gi");
+                      match_content = match_content.replace(regS, "<b class=\"search-keyword\">"+keyword+"</b>");
+                    });
+
+                    str += "<p class=\"search-result\">" + match_content +"...</p>"
+                  }
+                  str += "</li>";
+                }
+              })};
+            str += "</ul>";
+            if (matchcounts == 0) { str = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>' }
+            if (keywords == "") { str = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>' }
+            $resultContent.innerHTML = str;
+          });
+          proceedsearch();
+        }
+      });}
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched == false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(function(e){
+      $('.popup').hide();
+      $(".popoverlay").remove();
+      $('body').css('overflow', '');
+    });
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+  </script>
+
+
+  
+
+  
+
+  
+<script>
+(function(){
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+    }
+    else {
+        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+})();
+</script>
+
+
+  
+
+	<!-- 页面点击小红心 -->
+<script type="text/javascript" src="/js/src/love.js"></script>
+
+</body>
+</html>
